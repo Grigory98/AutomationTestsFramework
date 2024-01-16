@@ -32,6 +32,12 @@ public class LoginDialogWindow {
     }
 
     public LoginDialogWindow() {
-        this.dialog = DriversManager.current().findElement(By.cssSelector("#login-content"));
+        var div = DriversManager.current().findElement(By.cssSelector(".ag-popup__frame__layout.ag-popup__frame__layout-desktop"));
+
+        var iframe = div.findElement(By.tagName("iframe"));
+
+        DriversManager.current().switchTo().frame(iframe);
+
+        this.dialog = DriversManager.current().findElement(By.xpath("//*[@id=\"login-content\"]"));
     }
 }
