@@ -11,29 +11,20 @@ public class DriversManager {
 
     private static WebDriverWait _wait;
 
-    private static ApplicationConfig _config;
-
     public static boolean isDriverExist() {
         return _current != null;
-    }
-
-    public static ApplicationConfig config() {
-        if(_config == null) {
-            _config = new ApplicationConfig();
-        }
-        return _config;
     }
 
     public static WebDriver current() {
         if (!DriversManager.isDriverExist()) {
             ChromeOptions chromeOptions = new ChromeOptions();
             chromeOptions.addArguments("--remote-allow-origins=*");
-            _config = config();
-            if(_config.headlessMode)
+            if(ApplicationConfig.headlessMode)
                 chromeOptions.addArguments("--headless");
             _current = new ChromeDriver(chromeOptions);
+            _current.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
             _current.manage().window().maximize();
-            _current.get(_config.url);
+            _current.get(ApplicationConfig.url);
         }
         return _current;
     }
@@ -50,4 +41,5 @@ public class DriversManager {
         }
         return _wait;
     }
+
 }
