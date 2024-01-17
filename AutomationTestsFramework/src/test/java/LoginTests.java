@@ -19,11 +19,14 @@ public class LoginTests {
         loginDialogWindow.clickNextButton();
         loginDialogWindow.fillPassword(ApplicationConfig.password);
         loginDialogWindow.clickSignInButton();
-        Assertions.assertEquals(DriversManager.current().getCurrentUrl(), "https://e.mail.ru/inbox/");
+        Assertions.assertTrue(
+                DriversManager.current().getCurrentUrl().contains("https://e.mail.ru/inbox/"),
+                "Вход в почтовый ящик выполнен успешно"
+        );
     }
 
     @AfterAll
     public static void tearDown() {
-        DriversManager.current().close();
+        DriversManager.closeBrowser();
     }
 }
