@@ -1,0 +1,42 @@
+package dialogs;
+
+import core.ApplicationConfig;
+import core.DriversManager;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
+import pages.AbstractPage;
+
+public class SendMessageDialogWindow extends AbstractPage {
+    @FindBy(how = How.XPATH, using = "(//div[@class = \"compose-app__compose\"]//input[@type = \"text\"])[1]")
+    private WebElement forWhom;
+
+    @FindBy(how = How.XPATH, using = "//input[@name = \"Subject\"]")
+    private WebElement topic;
+
+    @FindBy(how = How.XPATH, using = "//div[@role = \"textbox\"]")
+    private WebElement textbox;
+
+    @FindBy(how = How.CSS, using = "[data-test-id = \"send\"]")
+    private WebElement sendButton;
+
+    @FindBy(how = How.CSS, using = ".layer__link")
+    private WebElement successfulTitleAfterSend;
+
+    public void fillForWhom() {
+        forWhom.sendKeys(ApplicationConfig.username);
+    }
+
+    public void fillTopic(String text) {
+        topic.sendKeys(text);
+    }
+
+    public void fillTextbox(String text) {
+        textbox.sendKeys(text);
+    }
+
+    public boolean sendMessage() {
+        sendButton.click();
+        return DriversManager.waitFor().until(t -> successfulTitleAfterSend.getText().contains("Письмо отправлено"));
+    }
+}
