@@ -3,6 +3,7 @@ import core.DriversManager;
 import dialogs.LoginDialogWindow;
 import dialogs.SendMessageDialogWindow;
 import grids.MailGrid;
+import grids.items.Message;
 import org.junit.jupiter.api.*;
 import pages.MainPage;
 
@@ -37,8 +38,21 @@ public class MailTests {
     @DisplayName("Поиск сообщения")
     public void searchLetter() {
         MailGrid mailGrid = new MailGrid();
-        mailGrid.searchMessage("TestTopic");
-        Assertions.assertNotNull(mailGrid.getMessage("TestTopic"), "Появилось сообщение в гриде");
+        mailGrid.startSearch("TestTopic");
+        Message message = mailGrid.getMessage("TestTopic");
+        Assertions.assertNotNull(message, "Появилось сообщение в гриде");
+    }
+
+    @Test
+    @DisplayName("Удаление сообщения")
+    public void deleteMessages() {
+        String hintMessage = "Перемещено в папку «Корзина»";
+        MailGrid mailGrid = new MailGrid();
+        mailGrid.startSearch("TestTopic");
+        Message message = mailGrid.getMessage("TestTopic");
+        message.selectMessage();
+        mailGrid.deleteMessgaes();
+        Assertions.assertTrue(mailGrid.checkHintExists(hintMessage), "Появился хинт с сообщением: " + hintMessage);
     }
 
     @AfterAll
