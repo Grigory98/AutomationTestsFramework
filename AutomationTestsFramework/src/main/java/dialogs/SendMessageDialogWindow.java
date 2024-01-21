@@ -23,6 +23,9 @@ public class SendMessageDialogWindow extends AbstractPage {
     @FindBy(how = How.CSS, using = ".layer__link")
     private WebElement successfulTitleAfterSend;
 
+    @FindBy(how = How.CSS, using = "[title = \"Закрыть\"]")
+    private WebElement closeWindowButton;
+
     public void fillForWhom() {
         forWhom.sendKeys(ApplicationConfig.username);
     }
@@ -33,6 +36,10 @@ public class SendMessageDialogWindow extends AbstractPage {
 
     public void fillTextbox(String text) {
         textbox.sendKeys(text);
+    }
+
+    public void closeWindow() {
+        closeWindowButton.click();
     }
 
     public boolean sendMessage() {

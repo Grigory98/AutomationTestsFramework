@@ -5,6 +5,7 @@ import grids.items.Message;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
@@ -19,11 +20,17 @@ public class MailGrid extends AbstractGrid {
     @FindBy(how = How.CSS, using = ".compose-button__txt")
     private WebElement sendMessageButton;
 
+    @FindBy(how = How.XPATH, using = "//div[text() = \"Сбросить поиск\"]")
+    private WebElement resetSearchButton;
+
     @FindBy(how = How.CSS, using = ".search-panel-button__text")
     private WebElement searchPanelButton;
 
     @FindBy(how = How.CSS, using = ".search-panel__layer input")
     private WebElement searchInput;
+
+    @FindBy(how = How.CSS, using = "[href = \"/trash/?\"]")
+    private WebElement basketButton;
 
     public void startSearch(String text) {
         searchPanelButton.click();
@@ -31,26 +38,43 @@ public class MailGrid extends AbstractGrid {
         searchInput.sendKeys(Keys.ENTER);
     }
 
+    public void resetSearch() {
+        resetSearchButton.click();
+    }
+
     public void sendMessage() {
         sendMessageButton.click();
     }
 
-
+    public void moveToBasket() {
+        basketButton.click();
+    }
 
     public Message getMessage(String topic) {
         List<Message> messages = getMessages();
+        if(messages.isEmpty())
+            return null;
         return messages.stream()
                 .filter(m -> m.getTitle().contains(topic))
                 .collect(Collectors.toList())
                 .get(0);
     }
 
+    public Message getMessage(int num) {
+        List<Message> messages = getMessages();
+        if(messages.isEmpty())
+            return null;
+        return messages.get(num);
+    }
+
     public void deleteMessgaes() {
-        messageList.sendKeys(Keys.DELETE);
+        Actions action = new Actions(DriversManager.current());
+        action.sendKeys(Keys.DELETE).perform();
     }
 
     public boolean checkHintExists(String text) {
-        WebElement hint = DriversManager.waitFor().until(t -> DriversManager.current().findElement(By.cssSelector(".notify__body")));
+        WebElement notifyStack = DriversManager.current().findElement(By.cssSelector(".notify-stack_fixed"));
+        WebElement hint = DriversManager.waitFor().until(t -> notifyStack.findElement(By.cssSelector(".notify__message")));
         return hint.getText().contains(text);
     }
 
@@ -63,8 +87,7 @@ public class MailGrid extends AbstractGrid {
 
         return messageList.findElements(By.cssSelector(".llc"))
                 .stream()
-                .map(m -> new Message(m))
+                .map(Message::new)
                 .collect(Collectors.toList());
     }
-
 }
