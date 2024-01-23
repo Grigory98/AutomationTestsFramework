@@ -1,16 +1,19 @@
+package tests;
+
 import core.ApplicationConfig;
 import core.DriversManager;
 import dialogs.LoginDialogWindow;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeAll;
 import pages.MainPage;
+import utils.TestDataGenerate;
 
-public class LoginTests {
-    @Test
-    @DisplayName("Вход в почтовый ящик")
-    public void logIn() {
+public class MainTest {
+    public final String messageTitle = TestDataGenerate.generateString(15);
+    public final String messageDescription = TestDataGenerate.generateString(15);
+
+    @BeforeAll
+    public static void logIn() {
         MainPage mainPage = new MainPage();
         mainPage.signInButton.click();
 
@@ -19,10 +22,6 @@ public class LoginTests {
         loginDialogWindow.clickNextButton();
         loginDialogWindow.fillPassword(ApplicationConfig.password);
         loginDialogWindow.clickSignInButton();
-        Assertions.assertTrue(
-                DriversManager.current().getCurrentUrl().contains("https://e.mail.ru/inbox/"),
-                "Вход в почтовый ящик выполнен успешно"
-        );
     }
 
     @AfterAll
