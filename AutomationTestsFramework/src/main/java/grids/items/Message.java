@@ -32,6 +32,12 @@ public class Message {
         message.click();
     }
 
+    public void markAsFavorite() {
+        WebElement flag = message.findElement(By.cssSelector(".ll-fs"));
+        if(!flag.getAttribute("class").contains("ll-fs_is-active"))
+            flag.click();
+    }
+
     public Message(WebElement message) {
         this.message = message;
     }
