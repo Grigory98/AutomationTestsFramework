@@ -1,27 +1,45 @@
 package grids.items;
 
 import core.DriversManager;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
+import pages.AbstractPage;
 
-public class Message {
+public class Message extends AbstractPage {
     private final WebElement message;
 
-    public String getSender() {
-        return message.findElement(By.cssSelector(".llc__item_correspondent")).getText();
+    private final String IS_ACTIVE_SELECTOR = "ll-fs_is-active";
+
+    @FindBy(how = How.CSS, using = ".llc__item_correspondent")
+    private WebElement correspondent;
+
+    @FindBy(how = How.CSS, using = ".llc__item_title")
+    private WebElement title;
+
+    @FindBy(how = How.CSS, using = ".llc__snippet")
+    private WebElement description;
+
+    @FindBy(how = How.CSS, using = ".checkbox__box")
+    private WebElement checkbox;
+
+    @FindBy(how = How.CSS, using = ".ll-fs")
+    private WebElement flag;
+
+    public String getCorrespondent() {
+        return correspondent.getText();
     }
 
     public String getTitle() {
-        return message.findElement(By.cssSelector(".llc__item_title")).getText();
+        return title.getText();
     }
 
     public String getDescription() {
-        return message.findElement(By.cssSelector(".llc__snippet")).getText();
+        return description.getText();
     }
 
     public void selectMessage() {
-        WebElement checkbox  = this.message.findElement(By.cssSelector(".checkbox__box"));
         Actions action = new Actions(DriversManager.current());
         action.moveToElement(this.message).perform();
         DriversManager.waitFor().until(t -> checkbox.isDisplayed());
@@ -29,8 +47,7 @@ public class Message {
     }
 
     public void markAsFavorite() {
-        WebElement flag = message.findElement(By.cssSelector(".ll-fs"));
-        if(!flag.getAttribute("class").contains("ll-fs_is-active"))
+        if(!flag.getAttribute("class").contains(IS_ACTIVE_SELECTOR))
             flag.click();
     }
 
