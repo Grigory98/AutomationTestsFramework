@@ -11,7 +11,7 @@ public class DeleteMessageTest extends SendTest {
     @Test
     @DisplayName("Удаление сообщения")
     public void deleteMessages() {
-        String hintMessage = "Перемещено в папку «Корзина»";
+        //String hintMessage = "Перемещено в папку «Корзина»";
         MailGrid mailGrid = new MailGrid();
         mailGrid.startSearch(this.messageTitle);
         Message message = mailGrid.getMessage(this.messageTitle);

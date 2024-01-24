@@ -25,9 +25,6 @@ public class LoginDialogWindow extends AbstractPage {
     @FindBy(how = How.CSS, using = "[data-test-id = \"submit-button\"]")
     public WebElement submitButton;
 
-    @FindBy(how = How.XPATH, using = "//*[@id=\"login-content\"")
-    public WebElement loginContent;
-
     public void fillUsername(String text) {
         username.sendKeys(text);
     }
