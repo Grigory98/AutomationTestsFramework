@@ -20,6 +20,9 @@ public class SendMessageDialogWindow extends AbstractPage {
     @FindBy(how = How.CSS, using = "[data-test-id = \"send\"]")
     private WebElement sendButton;
 
+    @FindBy(how = How.CSS, using = "[data-test-id=\"save\"]")
+    private WebElement saveButton;
+
     @FindBy(how = How.CSS, using = ".layer__link")
     private WebElement successfulTitleAfterSend;
 
@@ -40,6 +43,10 @@ public class SendMessageDialogWindow extends AbstractPage {
 
     public void closeWindow() {
         closeWindowButton.click();
+    }
+
+    public void saveMessageAsDraft() {
+        saveButton.click();
     }
 
     public boolean sendMessage() {

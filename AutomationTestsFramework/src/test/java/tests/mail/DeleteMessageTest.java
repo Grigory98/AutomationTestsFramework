@@ -19,7 +19,7 @@ public class DeleteMessageTest extends SendTest {
         mailGrid.deleteMessgaes();
         //Assertions.assertTrue(mailGrid.checkHintExists(hintMessage), "Появился хинт с сообщением: " + hintMessage);
         mailGrid.resetSearch();
-        mailGrid.moveToBasket();
+        mailGrid.goToBasket();
         Message messageInBasket = mailGrid.getMessage(this.messageTitle);
         Assertions.assertNotNull(messageInBasket, "Удалённое сообщение находится в корзине");
     }

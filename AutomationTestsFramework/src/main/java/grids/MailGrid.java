@@ -29,8 +29,11 @@ public class MailGrid extends AbstractGrid {
     @FindBy(how = How.CSS, using = ".search-panel__layer input")
     private WebElement searchInput;
 
+    @FindBy(how = How.CSS, using = "[href=\"/drafts/?\"]")
+    private WebElement sectionDraft;
+
     @FindBy(how = How.CSS, using = "[href = \"/trash/?\"]")
-    private WebElement basketButton;
+    private WebElement sectionBasket;
 
     public void startSearch(String text) {
         searchPanelButton.click();
@@ -51,8 +54,14 @@ public class MailGrid extends AbstractGrid {
         sendMessageButton.click();
     }
 
-    public void moveToBasket() {
-        basketButton.click();
+    public void goToDrafts() {
+        sectionDraft.click();
+        DriversManager.waitFor().until(t -> sectionDraft.getAttribute("class").contains("nav__item_active"));
+    }
+
+    public void goToBasket() {
+        sectionBasket.click();
+        DriversManager.waitFor().until(t -> sectionBasket.getAttribute("class").contains("nav__item_active"));
     }
 
     public Message getMessage(String topic) {
