@@ -49,8 +49,11 @@ public class SendMessageDialogWindow extends AbstractPage {
         saveButton.click();
     }
 
-    public boolean sendMessage() {
+    public void sendMessage() {
         sendButton.click();
+    }
+
+    public boolean checkAfterSendMessage() {
         return DriversManager.waitFor().until(t -> successfulTitleAfterSend.getText().contains("Письмо отправлено"));
     }
 }
