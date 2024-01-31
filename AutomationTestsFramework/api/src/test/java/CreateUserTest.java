@@ -9,6 +9,6 @@ public class CreateUserTest {
 
         Response<User> response = userClient.createUser("Aaa", "Bbb", 30, "MALE", 10000);
 
-        Assertions.assertEquals(200, response.getCode());
+        Assertions.assertEquals(201, response.getCode());
     }
 }

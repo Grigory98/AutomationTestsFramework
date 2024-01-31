@@ -12,6 +12,7 @@ import org.apache.hc.core5.http.HttpHeaders;
 import org.apache.hc.core5.http.NameValuePair;
 import org.apache.hc.core5.http.ParseException;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
+import org.apache.hc.core5.http.io.entity.StringEntity;
 import org.apache.hc.core5.http.message.BasicNameValuePair;
 
 import java.io.IOException;
@@ -82,18 +83,28 @@ public class UserClientImpl implements UserClient {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         try {
             final HttpPost httpPost = new HttpPost(Constants.URL + "/user");
-            List<NameValuePair> params = new ArrayList<>();
-            params.add(new BasicNameValuePair("firstName", firstName));
-            params.add(new BasicNameValuePair("secondName", secondName));
-            params.add(new BasicNameValuePair("age", Integer.toString(age)));
-            params.add(new BasicNameValuePair("sex", sex));
-            params.add(new BasicNameValuePair("money", Double.toString(money)));
-            httpPost.setEntity(new UrlEncodedFormEntity(params, StandardCharsets.UTF_8));
+            // TODO: Сделать через параметры.
+//            List<NameValuePair> params = new ArrayList<>();
+//            params.add(new BasicNameValuePair("firstName", firstName));
+//            params.add(new BasicNameValuePair("secondName", secondName));
+//            params.add(new BasicNameValuePair("age", Integer.toString(age)));
+//            params.add(new BasicNameValuePair("sex", sex));
+//            params.add(new BasicNameValuePair("money", String.valueOf(money)));
+//            httpPost.setEntity(new UrlEncodedFormEntity(params, StandardCharsets.UTF_8));
+
+            String json1 = String.format(
+                            "{\"firstName\":\"%s\"," +
+                            "\"secondName\":\"%s\"," +
+                            "\"age\":\"%s\"," +
+                            "\"sex\":\"%s\"," +
+                            "\"money\":\"%s\"}",
+                    firstName, secondName, age, sex, money);
+
+            StringEntity entity = new StringEntity(json1);
+            httpPost.setEntity(entity);
 
             httpPost.setHeader(HttpHeaders.AUTHORIZATION, token);
             httpPost.setHeader(HttpHeaders.CONTENT_TYPE, "application/json");
-            httpPost.setHeader(HttpHeaders.HOST, Constants.HOST);
-            httpPost.setHeader(HttpHeaders.CONTENT_LENGTH, 200);
 
             CloseableHttpResponse response = httpClient.execute(httpPost);
 
