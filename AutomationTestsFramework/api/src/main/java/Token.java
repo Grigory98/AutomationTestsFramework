@@ -17,13 +17,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Token {
+    private static final Gson gson = new Gson();
 
-    private final Gson gson = new Gson();
-
-    public Response<TokenMap> authorization() {
+    public static String authorization() {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         try {
-            final HttpPost httpPost = new HttpPost(Constants.URL + "/user");
+            final HttpPost httpPost = new HttpPost(Constants.URL + "/login");
             List<NameValuePair> params = new ArrayList<>(2);
             params.add(new BasicNameValuePair("username", Constants.LOGIN));
             params.add(new BasicNameValuePair("password", Constants.PASSWORD));
@@ -33,7 +32,8 @@ public class Token {
 
             String json = EntityUtils.toString(response.getEntity());
             TokenMap token = gson.fromJson(json, TokenMap.class);
-            return new Response<TokenMap>(response.getCode(), token);
+
+            return "Bearer " + new Response<TokenMap>(response.getCode(), token).getObject().getToken();
         } catch (IOException | ParseException e) {
             throw new RuntimeException(e);
         }
