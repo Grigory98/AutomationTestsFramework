@@ -1,15 +1,11 @@
 import base.Request;
 import base.Response;
-import com.google.gson.Gson;
 import dto.User;
 import dto.UserInfo;
 
 import java.util.LinkedHashMap;
 
 public class UserClientImpl implements UserClient {
-
-    private final Gson gson = new Gson();
-
     /***
      * Получение всех пользователей
      */
