@@ -1,5 +1,6 @@
-import maps.User;
-import maps.UserInfo;
+import base.Response;
+import dto.User;
+import dto.UserInfo;
 
 public interface UserClient {
 

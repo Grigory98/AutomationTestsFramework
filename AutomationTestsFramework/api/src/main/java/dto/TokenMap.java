@@ -1,4 +1,4 @@
-package maps;
+package dto;
 
 public class TokenMap {
     private String access_token;

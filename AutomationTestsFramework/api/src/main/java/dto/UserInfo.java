@@ -1,4 +1,4 @@
-package maps;
+package dto;
 
 public class UserInfo extends User {
     public int house;

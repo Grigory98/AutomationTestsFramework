@@ -1,4 +1,4 @@
-package maps;
+package dto;
 
 public class Car {
     public int id;

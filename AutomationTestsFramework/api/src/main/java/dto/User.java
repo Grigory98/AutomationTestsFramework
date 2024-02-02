@@ -1,4 +1,4 @@
-package maps;
+package dto;
 
 public class User {
     public int id;

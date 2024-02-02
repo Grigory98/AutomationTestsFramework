@@ -1,24 +1,10 @@
+import base.Request;
+import base.Response;
 import com.google.gson.Gson;
-import config.Constants;
-import maps.User;
-import maps.UserInfo;
-import org.apache.hc.client5.http.classic.methods.HttpGet;
-import org.apache.hc.client5.http.classic.methods.HttpPost;
-import org.apache.hc.client5.http.entity.UrlEncodedFormEntity;
-import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
-import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
-import org.apache.hc.client5.http.impl.classic.HttpClients;
-import org.apache.hc.core5.http.HttpHeaders;
-import org.apache.hc.core5.http.NameValuePair;
-import org.apache.hc.core5.http.ParseException;
-import org.apache.hc.core5.http.io.entity.EntityUtils;
-import org.apache.hc.core5.http.io.entity.StringEntity;
-import org.apache.hc.core5.http.message.BasicNameValuePair;
+import dto.User;
+import dto.UserInfo;
 
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashMap;
 
 public class UserClientImpl implements UserClient {
 
@@ -29,16 +15,7 @@ public class UserClientImpl implements UserClient {
      */
     @Override
     public Response<User[]> getUsers() {
-        CloseableHttpClient httpClient = HttpClients.createDefault();
-        final HttpGet httpGet = new HttpGet(Constants.URL + "/users");
-        try {
-            CloseableHttpResponse response = httpClient.execute(httpGet);
-            String json = EntityUtils.toString(response.getEntity());
-            User[] user = gson.fromJson(json, User[].class);
-            return new Response<User[]>(response.getCode(), user);
-        } catch (IOException | ParseException e) {
-            throw new RuntimeException(e);
-        }
+        return new Request<User[]>().Get("/users", User[].class);
     }
 
     /**
@@ -46,16 +23,7 @@ public class UserClientImpl implements UserClient {
      */
     @Override
     public Response<User> getUser(int id) {
-        CloseableHttpClient httpClient = HttpClients.createDefault();
-        final HttpGet httpGet = new HttpGet(Constants.URL + "/user/" + id);
-        try {
-            CloseableHttpResponse response = httpClient.execute(httpGet);
-            String json = EntityUtils.toString(response.getEntity());
-            User user = gson.fromJson(json, User.class);
-            return new Response<User>(response.getCode(), user);
-        } catch (IOException | ParseException e) {
-            throw new RuntimeException(e);
-        }
+        return new Request<User>().Get("/user/" + id, User.class);
     }
 
     /**
@@ -63,16 +31,7 @@ public class UserClientImpl implements UserClient {
      */
     @Override
     public Response<UserInfo> getUserInfo(int id) {
-        CloseableHttpClient httpClient = HttpClients.createDefault();
-        final HttpGet httpGet = new HttpGet(Constants.URL + "/user/" + id + "/Info");
-        try {
-            CloseableHttpResponse response = httpClient.execute(httpGet);
-            String json = EntityUtils.toString(response.getEntity());
-            UserInfo userInfo = gson.fromJson(json, UserInfo.class);
-            return new Response<UserInfo>(response.getCode(), userInfo);
-        } catch (IOException | ParseException e) {
-            throw new RuntimeException(e);
-        }
+        return new Request<UserInfo>().Get("/user/" + id + "/Info", UserInfo.class);
     }
 
     /**
@@ -80,39 +39,13 @@ public class UserClientImpl implements UserClient {
      */
     public Response<User> createUser(String firstName, String secondName, int age, String sex, double money) {
         String token = Token.authorization();
-        CloseableHttpClient httpClient = HttpClients.createDefault();
-        try {
-            final HttpPost httpPost = new HttpPost(Constants.URL + "/user");
-            // TODO: Сделать через параметры.
-//            List<NameValuePair> params = new ArrayList<>();
-//            params.add(new BasicNameValuePair("firstName", firstName));
-//            params.add(new BasicNameValuePair("secondName", secondName));
-//            params.add(new BasicNameValuePair("age", Integer.toString(age)));
-//            params.add(new BasicNameValuePair("sex", sex));
-//            params.add(new BasicNameValuePair("money", String.valueOf(money)));
-//            httpPost.setEntity(new UrlEncodedFormEntity(params, StandardCharsets.UTF_8));
+        final LinkedHashMap<String, String> params = new LinkedHashMap<>();
+        params.put("firstName", firstName);
+        params.put("secondName", secondName);
+        params.put("age", Integer.toString(age));
+        params.put("sex", sex);
+        params.put("money", Double.toString(money));
 
-            String json1 = String.format(
-                            "{\"firstName\":\"%s\"," +
-                            "\"secondName\":\"%s\"," +
-                            "\"age\":\"%s\"," +
-                            "\"sex\":\"%s\"," +
-                            "\"money\":\"%s\"}",
-                    firstName, secondName, age, sex, money);
-
-            StringEntity entity = new StringEntity(json1);
-            httpPost.setEntity(entity);
-
-            httpPost.setHeader(HttpHeaders.AUTHORIZATION, token);
-            httpPost.setHeader(HttpHeaders.CONTENT_TYPE, "application/json");
-
-            CloseableHttpResponse response = httpClient.execute(httpPost);
-
-            String json = EntityUtils.toString(response.getEntity());
-            User user = gson.fromJson(json, User.class);
-            return new Response<User>(response.getCode(), user);
-        } catch (IOException | ParseException e) {
-            throw new RuntimeException(e);
-        }
+        return new Request<User>().Post(token, "/user", params, User.class);
     }
 }

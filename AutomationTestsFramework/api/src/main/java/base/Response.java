@@ -1,3 +1,5 @@
+package base;
+
 public class Response<T> {
     private final int code;
 
