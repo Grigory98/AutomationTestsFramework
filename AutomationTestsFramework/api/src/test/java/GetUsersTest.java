@@ -21,4 +21,13 @@ public class GetUsersTest {
 
         Assertions.assertEquals(200, response.getCode(), "Код ответа 200");
     }
+
+    @Test
+    public void addMoneyTest() {
+        UserClientImpl userClient = new UserClientImpl();
+
+        Response<User> response = userClient.changeMoney(1, 1000);
+
+        Assertions.assertEquals(200, response.getCode(), "Код ответа 200");
+    }
 }

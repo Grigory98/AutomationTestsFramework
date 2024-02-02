@@ -33,7 +33,12 @@ public class UserClientImpl implements UserClient {
     /**
      * Добавление нового пользователя
      */
-    public Response<User> createUser(String firstName, String secondName, int age, String sex, double money) {
+    public Response<User> createUser(
+            final String firstName,
+            final String secondName,
+            final int age, String sex,
+            final double money
+    ) {
         String token = Token.authorization();
         final LinkedHashMap<String, String> params = new LinkedHashMap<>();
         params.put("firstName", firstName);
@@ -44,4 +49,40 @@ public class UserClientImpl implements UserClient {
 
         return new Request<User>().Post(token, "/user", params, User.class);
     }
+
+    /**
+     * Добавление amount денежных средств пользователю userId
+     */
+    public Response<User> changeMoney(int userId, int amount) {
+        String token = Token.authorization();
+        String url = "/user/" + userId + "/money/" + amount;
+        return new Request<User>().Post(token, url, null, User.class);
+    }
+
+    /**
+     * Купить пользователю userId машину carId
+     */
+    public Response<User> buyCar(final int userId, final int carId) {
+        String token = Token.authorization();
+        String url = "/user/" + userId + "/buyCar/" + carId;
+        return new Request<User>().Post(token, url, null, User.class);
+    }
+
+    /**
+     * Продать машину carId у пользователя userId
+     */
+    public Response<User> sellCar(final int userId, final int carId) {
+        String token = Token.authorization();
+        String url = "/user/" + userId + "/sellCar/" + carId;
+        return new Request<User>().Post(token, url, null, User.class);
+    }
+
+    /**
+     * Удаление пользователя
+     */
+    public int deleteUser(final int userId) {
+        String token = Token.authorization();
+        return new Request().Delete(token, "/user/" + userId);
+    }
+
 }

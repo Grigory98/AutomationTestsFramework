@@ -2,6 +2,7 @@ package base;
 
 import com.google.gson.Gson;
 import config.Constants;
+import org.apache.hc.client5.http.classic.methods.HttpDelete;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.classic.methods.HttpPost;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
@@ -50,6 +51,20 @@ public class Request<T> {
             T entity = gson.fromJson(json, responseType);
             return new Response<T>(response.getCode(), entity);
         } catch (IOException | ParseException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public int Delete(final String token, final String url) {
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        try {
+            HttpDelete httpDelete = new HttpDelete(Constants.URL + url);
+            httpDelete.setHeader(HttpHeaders.AUTHORIZATION, token);
+            httpDelete.setHeader(HttpHeaders.CONTENT_TYPE, "application/json");
+
+            CloseableHttpResponse response = httpClient.execute(httpDelete);
+            return response.getCode();
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }

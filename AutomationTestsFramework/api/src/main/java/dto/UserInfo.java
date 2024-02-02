@@ -1,6 +1,14 @@
 package dto;
 
 public class UserInfo extends User {
-    public int house;
-    public Car[] cars;
+    private int house;
+    private Car[] cars;
+
+    public int getHouse() {
+        return house;
+    }
+
+    public Car[] getCars() {
+        return cars;
+    }
 }
