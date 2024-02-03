@@ -34,7 +34,7 @@ public class Request<T> {
         }
     }
 
-    public Response<T> Post(final String token, final String url, final LinkedHashMap<String, String> params, Class<T> responseType) {
+    public Response<T> Post(final String token, final String url, final LinkedHashMap<String, Object> params, Class<T> responseType) {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         try {
             final HttpPost httpPost = new HttpPost(Constants.URL + url);

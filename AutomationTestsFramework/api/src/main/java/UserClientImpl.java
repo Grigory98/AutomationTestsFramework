@@ -40,12 +40,12 @@ public class UserClientImpl implements UserClient {
             final double money
     ) {
         String token = Token.authorization();
-        final LinkedHashMap<String, String> params = new LinkedHashMap<>();
+        final LinkedHashMap<String, Object> params = new LinkedHashMap<>();
         params.put("firstName", firstName);
         params.put("secondName", secondName);
-        params.put("age", Integer.toString(age));
+        params.put("age", age);
         params.put("sex", sex);
-        params.put("money", Double.toString(money));
+        params.put("money", money);
 
         return new Request<User>().Post(token, "/user", params, User.class);
     }
