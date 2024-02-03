@@ -10,6 +10,26 @@ public interface UserClient {
 
     Response<UserInfo> getUserInfo(int id);
 
-    Response<User> createUser(String firstName, String secondName, int age, String sex, double money );
+    Response<User> createUser(
+            final String firstName,
+            final String secondName,
+            final int age, String sex,
+            final double money
+    );
 
+    Response<User> updateUser(
+            final int id,
+            final String firstName,
+            final String secondName,
+            final int age, String sex,
+            final double money
+    );
+
+    Response<User> changeMoney(int userId, int amount);
+
+    Response<User> buyCar(final int userId, final int carId);
+
+    Response<User> sellCar(final int userId, final int carId);
+
+    int deleteUser(final int userId);
 }

@@ -51,6 +51,28 @@ public class UserClientImpl implements UserClient {
     }
 
     /**
+     * Обновление данных пользователя
+     */
+    public Response<User> updateUser(
+            final int id,
+            final String firstName,
+            final String secondName,
+            final int age, String sex,
+            final double money
+    ) {
+        String token = Token.authorization();
+        final LinkedHashMap<String, String> params = new LinkedHashMap<>();
+        params.put("firstName", firstName);
+        params.put("secondName", secondName);
+        params.put("age", Integer.toString(age));
+        params.put("sex", sex);
+        params.put("money", Double.toString(money));
+
+        return new Request<User>().Put(token, "/user/" + id, params, User.class);
+    }
+
+
+    /**
      * Добавление amount денежных средств пользователю userId
      */
     public Response<User> changeMoney(int userId, int amount) {
@@ -84,5 +106,4 @@ public class UserClientImpl implements UserClient {
         String token = Token.authorization();
         return new Request().Delete(token, "/user/" + userId);
     }
-
 }

@@ -5,6 +5,7 @@ import config.Constants;
 import org.apache.hc.client5.http.classic.methods.HttpDelete;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.classic.methods.HttpPost;
+import org.apache.hc.client5.http.classic.methods.HttpPut;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
@@ -47,6 +48,28 @@ public class Request<T> {
 
             CloseableHttpResponse response = httpClient.execute(httpPost);
 
+            String json = EntityUtils.toString(response.getEntity());
+            T entity = gson.fromJson(json, responseType);
+            return new Response<T>(response.getCode(), entity);
+        } catch (IOException | ParseException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Response<T> Put(final String token, final String url, final LinkedHashMap<String, String> params, Class<T> responseType) {
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        try {
+            HttpPut httpPut = new HttpPut(Constants.URL + url);
+            String entityString = gson.toJson(params);
+
+            StringEntity stringEntity = new StringEntity(entityString);
+            httpPut.setEntity(stringEntity);
+
+            httpPut.setHeader(HttpHeaders.AUTHORIZATION, token);
+            httpPut.setHeader(HttpHeaders.ACCEPT, "application/json");
+            httpPut.setHeader(HttpHeaders.CONTENT_TYPE, "application/json");
+
+            CloseableHttpResponse response = httpClient.execute(httpPut);
             String json = EntityUtils.toString(response.getEntity());
             T entity = gson.fromJson(json, responseType);
             return new Response<T>(response.getCode(), entity);
