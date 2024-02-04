@@ -6,6 +6,9 @@ import dto.UserInfo;
 import java.util.LinkedHashMap;
 
 public class UserClientImpl implements UserClient {
+
+    private final String token = Token.authorization();
+
     /***
      * Получение всех пользователей
      */
@@ -39,7 +42,6 @@ public class UserClientImpl implements UserClient {
             final int age, String sex,
             final double money
     ) {
-        String token = Token.authorization();
         final LinkedHashMap<String, Object> params = new LinkedHashMap<>();
         params.put("firstName", firstName);
         params.put("secondName", secondName);
@@ -60,7 +62,6 @@ public class UserClientImpl implements UserClient {
             final int age, String sex,
             final double money
     ) {
-        String token = Token.authorization();
         final LinkedHashMap<String, Object> params = new LinkedHashMap<>();
         params.put("firstName", firstName);
         params.put("secondName", secondName);
@@ -76,7 +77,6 @@ public class UserClientImpl implements UserClient {
      * Добавление amount денежных средств пользователю userId
      */
     public Response<User> changeMoney(int userId, int amount) {
-        String token = Token.authorization();
         String url = "/user/" + userId + "/money/" + amount;
         return new Request<User>().Post(token, url, null, User.class);
     }
@@ -85,7 +85,6 @@ public class UserClientImpl implements UserClient {
      * Купить пользователю userId машину carId
      */
     public Response<User> buyCar(final int userId, final int carId) {
-        String token = Token.authorization();
         String url = "/user/" + userId + "/buyCar/" + carId;
         return new Request<User>().Post(token, url, null, User.class);
     }
@@ -94,7 +93,6 @@ public class UserClientImpl implements UserClient {
      * Продать машину carId у пользователя userId
      */
     public Response<User> sellCar(final int userId, final int carId) {
-        String token = Token.authorization();
         String url = "/user/" + userId + "/sellCar/" + carId;
         return new Request<User>().Post(token, url, null, User.class);
     }
@@ -103,7 +101,6 @@ public class UserClientImpl implements UserClient {
      * Удаление пользователя
      */
     public int deleteUser(final int userId) {
-        String token = Token.authorization();
-        return new Request().Delete(token, "/user/" + userId);
+        return new Request<User>().Delete(token, "/user/" + userId);
     }
 }

@@ -6,6 +6,8 @@ import java.util.LinkedHashMap;
 
 public class CarsClientImpl implements CarsClient {
 
+    private final String token = Token.authorization();
+
     /**
      * Получить все машины
      */
@@ -36,7 +38,6 @@ public class CarsClientImpl implements CarsClient {
             final String model,
             final double price
     ) {
-        String token = Token.authorization();
         final LinkedHashMap<String, Object> params = new LinkedHashMap<>();
         params.put("engineType", engineType);
         params.put("mark", mark);
@@ -56,7 +57,6 @@ public class CarsClientImpl implements CarsClient {
             final String model,
             final double price
     ) {
-        String token = Token.authorization();
         final LinkedHashMap<String, Object> params = new LinkedHashMap<>();
         params.put("engineType", engineType);
         params.put("mark", mark);
@@ -70,8 +70,7 @@ public class CarsClientImpl implements CarsClient {
      * Удалить машину
      */
     public int deleteCar(final int carId) {
-        String token = Token.authorization();
-        return new Request().Delete(token, "/car/" + carId);
+        return new Request<Car>().Delete(token, "/car/" + carId);
     }
 
 }

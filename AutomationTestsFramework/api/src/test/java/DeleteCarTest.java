@@ -6,7 +6,7 @@ public class DeleteCarTest {
     public void deleteCar() {
         CarsClientImpl carsClient = new CarsClientImpl();
 
-        int code = carsClient.deleteCar(1139);
+        int code = carsClient.deleteCar(1140);
 
         Assertions.assertEquals(204, code, "Код должен быть 204");
     }

@@ -7,6 +7,8 @@ import java.util.LinkedHashMap;
 
 public class HouseClientImpl {
 
+    private final String token = Token.authorization();
+
     /**
      * Получить все дома
      */
@@ -29,8 +31,6 @@ public class HouseClientImpl {
             final double price,
             final ParkingPlace[] parkingPlaces
     ) {
-        String token = Token.authorization();
-
         final LinkedHashMap<String, Object> params = new LinkedHashMap<>();
         params.put("floorCount", floorCount);
         params.put("price", price);
@@ -48,8 +48,6 @@ public class HouseClientImpl {
             final double price,
             final ParkingPlace[] parkingPlaces
     ) {
-        String token = Token.authorization();
-
         final LinkedHashMap<String, Object> params = new LinkedHashMap<>();
         params.put("floorCount", floorCount);
         params.put("price", price);
@@ -62,15 +60,13 @@ public class HouseClientImpl {
      * Удалить дом houseId
      */
     public int deleteHouse(final int houseId) {
-        String token = Token.authorization();
-        return new Request().Delete(token, "/house/" + houseId);
+        return new Request<House>().Delete(token, "/house/" + houseId);
     }
 
     /**
      * Заселить жильца userId в дом houseId
      */
     public Response<House> addLodger(final int houseId, final int userId) {
-        String token = Token.authorization();
         return new Request<House>().Post(token, "/house/" + houseId + "/settle/" + userId, null, House.class);
     }
 
@@ -78,7 +74,6 @@ public class HouseClientImpl {
      * Выселить жильца userId из дома houseId
      */
     public Response<House> removeLodger(final int houseId, final int userId) {
-        String token = Token.authorization();
         return new Request<House>().Post(token, "/house/" + houseId + "/evict/" + userId, null, House.class);
     }
 
