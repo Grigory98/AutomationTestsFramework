@@ -2,6 +2,7 @@ import base.Response;
 import dto.Car;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import services.CarsClientImpl;
 
 public class GetCarsTest {
     @Test

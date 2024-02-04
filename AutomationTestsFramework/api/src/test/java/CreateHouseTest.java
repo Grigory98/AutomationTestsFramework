@@ -4,6 +4,8 @@ import dto.ParkingPlace;
 import dto.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import services.HouseClientImpl;
+import services.UserClientImpl;
 
 public class CreateHouseTest {
     @Test

@@ -23,7 +23,7 @@ public class Request<T> {
 
     public Response<T> Get(final String url, Class<T> responseType) {
         CloseableHttpClient httpClient = HttpClients.createDefault();
-        final HttpGet httpGet = new HttpGet(Constants.URL + url);
+        final HttpGet httpGet = new HttpGet(Constants.URL_DEV + url);
         try {
             CloseableHttpResponse response = httpClient.execute(httpGet);
             String json = EntityUtils.toString(response.getEntity());
@@ -37,7 +37,7 @@ public class Request<T> {
     public Response<T> Post(final String token, final String url, final LinkedHashMap<String, Object> params, Class<T> responseType) {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         try {
-            final HttpPost httpPost = new HttpPost(Constants.URL + url);
+            final HttpPost httpPost = new HttpPost(Constants.URL_DEV + url);
             String entityString = gson.toJson(params);
 
             StringEntity stringEntity = new StringEntity(entityString);
@@ -59,7 +59,7 @@ public class Request<T> {
     public Response<T> Put(final String token, final String url, final LinkedHashMap<String, Object> params, Class<T> responseType) {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         try {
-            HttpPut httpPut = new HttpPut(Constants.URL + url);
+            HttpPut httpPut = new HttpPut(Constants.URL_DEV + url);
             String entityString = gson.toJson(params);
 
             StringEntity stringEntity = new StringEntity(entityString);
@@ -81,7 +81,7 @@ public class Request<T> {
     public int Delete(final String token, final String url) {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         try {
-            HttpDelete httpDelete = new HttpDelete(Constants.URL + url);
+            HttpDelete httpDelete = new HttpDelete(Constants.URL_DEV + url);
             httpDelete.setHeader(HttpHeaders.AUTHORIZATION, token);
             httpDelete.setHeader(HttpHeaders.CONTENT_TYPE, "application/json");
 
