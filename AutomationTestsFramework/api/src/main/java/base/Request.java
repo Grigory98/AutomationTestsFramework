@@ -56,7 +56,7 @@ public class Request<T> {
         }
     }
 
-    public Response<T> Put(final String token, final String url, final LinkedHashMap<String, String> params, Class<T> responseType) {
+    public Response<T> Put(final String token, final String url, final LinkedHashMap<String, Object> params, Class<T> responseType) {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         try {
             HttpPut httpPut = new HttpPut(Constants.URL + url);

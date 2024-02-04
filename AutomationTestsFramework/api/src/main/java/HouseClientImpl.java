@@ -24,7 +24,11 @@ public class HouseClientImpl {
     /**
      * Создать новый дом
      */
-    public Response<House> createHouse(final int floorCount, final double price, final ParkingPlace[] parkingPlaces) {
+    public Response<House> createHouse(
+            final int floorCount,
+            final double price,
+            final ParkingPlace[] parkingPlaces
+    ) {
         String token = Token.authorization();
 
         final LinkedHashMap<String, Object> params = new LinkedHashMap<>();
@@ -33,6 +37,33 @@ public class HouseClientImpl {
         params.put("parkingPlaces", parkingPlaces);
 
         return new Request<House>().Post(token, "/house", params, House.class);
+    }
+
+    /**
+     * Изменить данные дома
+     */
+    public Response<House> updateHouse(
+            final int houseId,
+            final int floorCount,
+            final double price,
+            final ParkingPlace[] parkingPlaces
+    ) {
+        String token = Token.authorization();
+
+        final LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        params.put("floorCount", floorCount);
+        params.put("price", price);
+        params.put("parkingPlaces", parkingPlaces);
+
+        return new Request<House>().Put(token, "/house/" + houseId, params, House.class);
+    }
+
+    /**
+     * Удалить дом
+     */
+    public int deleteHouse(final int houseId) {
+        String token = Token.authorization();
+        return new Request().Delete(token, "/house/" + houseId);
     }
 
     /**

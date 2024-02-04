@@ -57,11 +57,11 @@ public class CarsClientImpl implements CarsClient {
             final double price
     ) {
         String token = Token.authorization();
-        final LinkedHashMap<String, String> params = new LinkedHashMap<>();
+        final LinkedHashMap<String, Object> params = new LinkedHashMap<>();
         params.put("engineType", engineType);
         params.put("mark", mark);
         params.put("model", model);
-        params.put("price", Double.toString(price));
+        params.put("price", price);
 
         return new Request<Car>().Put(token, "/car/" + id, params, Car.class);
     }
