@@ -40,7 +40,7 @@ public class HouseClientImpl {
     }
 
     /**
-     * Изменить данные дома
+     * Изменить данные дома houseId
      */
     public Response<House> updateHouse(
             final int houseId,
@@ -59,11 +59,27 @@ public class HouseClientImpl {
     }
 
     /**
-     * Удалить дом
+     * Удалить дом houseId
      */
     public int deleteHouse(final int houseId) {
         String token = Token.authorization();
         return new Request().Delete(token, "/house/" + houseId);
+    }
+
+    /**
+     * Заселить жильца userId в дом houseId
+     */
+    public Response<House> addLodger(final int houseId, final int userId) {
+        String token = Token.authorization();
+        return new Request<House>().Post(token, "/house/" + houseId + "/settle/" + userId, null, House.class);
+    }
+
+    /**
+     * Выселить жильца userId из дома houseId
+     */
+    public Response<House> removeLodger(final int houseId, final int userId) {
+        String token = Token.authorization();
+        return new Request<House>().Post(token, "/house/" + houseId + "/evict/" + userId, null, House.class);
     }
 
     /**
