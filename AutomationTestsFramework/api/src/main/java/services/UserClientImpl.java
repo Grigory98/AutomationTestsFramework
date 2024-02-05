@@ -78,7 +78,7 @@ public class UserClientImpl implements UserClient {
     /**
      * Добавление amount денежных средств пользователю userId
      */
-    public Response<User> changeMoney(int userId, int amount) {
+    public Response<User> addMoney(int userId, double amount) {
         String url = "/user/" + userId + "/money/" + amount;
         return new Request<User>().Post(token, url, null, User.class);
     }

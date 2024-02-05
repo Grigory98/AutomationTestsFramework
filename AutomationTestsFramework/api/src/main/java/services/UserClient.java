@@ -27,7 +27,7 @@ public interface UserClient {
             final double money
     );
 
-    Response<User> changeMoney(int userId, int amount);
+    Response<User> addMoney(int userId, double amount);
 
     Response<User> buyCar(final int userId, final int carId);
 
