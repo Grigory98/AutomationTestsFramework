@@ -1,9 +1,15 @@
+import dto.Car;
 import dto.User;
+import dto.UserInfo;
 import org.junit.jupiter.api.*;
+import steps.CarSteps;
 import steps.UserSteps;
+
+import java.util.Arrays;
 
 public class UsersTests {
     private final UserSteps userSteps = new UserSteps();
+    private final CarSteps carSteps = new CarSteps();
     private User user;
 
     @BeforeEach
@@ -39,7 +45,7 @@ public class UsersTests {
         Assertions.assertNotEquals(user.getSecondName(), updatedUser.getSecondName(), "Фамилия пользователей отличается");
         Assertions.assertNotEquals(user.getAge(), updatedUser.getAge(), "Возраст пользователей отличается");
         Assertions.assertEquals(user.getSex(), updatedUser.getSex(), "Пол пользователей одинаковый");
-        Assertions.assertNotEquals(user.getMoney(), updatedUser.getMoney(), "Количество денег пользователей разное");
+        Assertions.assertNotEquals(user.getMoney(), updatedUser.getMoney(), "Сумма пользователей разное");
     }
 
     @Test
@@ -49,7 +55,31 @@ public class UsersTests {
         final double expectedUserAmount = user.getMoney() + money;
         userSteps.addMoney(user.getId(), money);
         user = userSteps.getUser(user.getId());
-        Assertions.assertEquals(user.getMoney(), expectedUserAmount, "Количество денег у пользователя совпадает с ожидаемым");
+        Assertions.assertEquals(user.getMoney(), expectedUserAmount, "Сумма у пользователя совпадает с ожидаемым");
+    }
+
+    @Test
+    @DisplayName("Покупка нескольких машин пользователем")
+    public void buyCars() {
+        int price = 100000;
+        userSteps.addMoney(user.getId(), price * 2);
+        final Car labma = carSteps.createCar("Electric", "Lamba", "Gallardo", price);
+        final Car ferra = carSteps.createCar("Gasoline", "Ferra", "California", price);
+        try {
+            userSteps.buyCar(user.getId(), labma);
+            userSteps.buyCar(user.getId(), ferra);
+            UserInfo userInfo = userSteps.getUserInfo(user.getId());
+
+            Assertions.assertEquals(userInfo.getCars().length, 2, "У пользователя имеется 2 машины");
+            Assertions.assertNotNull(Arrays.stream(userInfo.getCars()).filter(c -> c.getId() == labma.getId()).findAny(), "Куплена Lamba");
+            Assertions.assertNotNull(Arrays.stream(userInfo.getCars()).filter(c -> c.getId() == ferra.getId()).findAny(), "Куплена Ferra");
+            Assertions.assertEquals(user.getMoney(), userInfo.getMoney(), "Сумма не изменилась");
+        } finally {
+            userSteps.sellCar(user.getId(), labma);
+            userSteps.sellCar(user.getId(), ferra);
+            carSteps.deleteCar(labma.getId());
+            carSteps.deleteCar(ferra.getId());
+        }
     }
 
     private User updateUser() {

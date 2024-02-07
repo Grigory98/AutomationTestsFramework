@@ -32,7 +32,7 @@ public class UserClientImpl implements UserClient {
      */
     @Override
     public Response<UserInfo> getUserInfo(int id) {
-        return new Request<UserInfo>().Get("/user/" + id + "/Info", UserInfo.class);
+        return new Request<UserInfo>().Get("/user/" + id + "/info", UserInfo.class);
     }
 
     /**

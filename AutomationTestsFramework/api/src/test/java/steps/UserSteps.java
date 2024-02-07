@@ -1,7 +1,9 @@
 package steps;
 
 import base.Response;
+import dto.Car;
 import dto.User;
+import dto.UserInfo;
 import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
 import services.UserClientImpl;
@@ -36,6 +38,13 @@ public class UserSteps {
         return response.getObject();
     }
 
+    @Step("Получить полную информацию о пользователе {userId}")
+    public UserInfo getUserInfo(final int userId) {
+        Response<UserInfo> response = userClient.getUserInfo(userId);
+        Assertions.assertEquals(200, response.getCode(), "Код должен быть 200");
+        return response.getObject();
+    }
+
     @Step("Удалить пользователя с id = {userId}")
     public void deleteUser(final int userId) {
         userClient.deleteUser(userId);
@@ -58,6 +67,20 @@ public class UserSteps {
     @Step("Добавить пользователю {userId} денег в количестве {amount}")
     public User addMoney(final int userId, final double amount) {
         Response<User> response = userClient.addMoney(userId, amount);
+        Assertions.assertEquals(200, response.getCode(), "Код должен быть 200");
+        return response.getObject();
+    }
+
+    @Step("Купить пользователю {userId} машину")
+    public User buyCar(final int userId, final Car car) {
+        Response<User> response = userClient.buyCar(userId, car.getId());
+        Assertions.assertEquals(200, response.getCode(), "Код должен быть 200");
+        return response.getObject();
+    }
+
+    @Step("Продать машину у пользователя {userId}")
+    public User sellCar(final int userId, final Car car) {
+        Response<User> response = userClient.sellCar(userId, car.getId());
         Assertions.assertEquals(200, response.getCode(), "Код должен быть 200");
         return response.getObject();
     }
