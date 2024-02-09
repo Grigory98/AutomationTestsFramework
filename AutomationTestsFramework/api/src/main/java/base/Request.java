@@ -21,71 +21,81 @@ public class Request<T> {
 
     private final Gson gson = new Gson();
 
-    public Response<T> Get(final String url, Class<T> responseType) {
-        CloseableHttpClient httpClient = HttpClients.createDefault();
+    public T Get(final String url, Class<T> responseType) {
+        final CloseableHttpClient httpClient = HttpClients.createDefault();
         final HttpGet httpGet = new HttpGet(Constants.URL_DEV + url);
         try {
-            CloseableHttpResponse response = httpClient.execute(httpGet);
-            String json = EntityUtils.toString(response.getEntity());
-            T entity = gson.fromJson(json, responseType);
-            return new Response<T>(response.getCode(), entity);
+            final CloseableHttpResponse response = httpClient.execute(httpGet);
+            final T responseBody = gson.fromJson(
+                    EntityUtils.toString(response.getEntity()),
+                    responseType
+            );
+            final Response<T> responseEntity = new Response<T>(response.getCode(), responseBody);
+            RestClientUtils.checkResultCode(responseEntity.getCode());
+
+            return responseBody;
         } catch (IOException | ParseException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public Response<T> Post(final String token, final String url, final LinkedHashMap<String, Object> params, Class<T> responseType) {
-        CloseableHttpClient httpClient = HttpClients.createDefault();
+    public T Post(final String token, final String url, final LinkedHashMap<String, Object> params, Class<T> responseType) {
+        final CloseableHttpClient httpClient = HttpClients.createDefault();
         try {
             final HttpPost httpPost = new HttpPost(Constants.URL_DEV + url);
-            String entityString = gson.toJson(params);
-
-            StringEntity stringEntity = new StringEntity(entityString);
+            final StringEntity stringEntity = new StringEntity(gson.toJson(params));
             httpPost.setEntity(stringEntity);
-
             httpPost.setHeader(HttpHeaders.AUTHORIZATION, token);
             httpPost.setHeader(HttpHeaders.CONTENT_TYPE, "application/json");
 
-            CloseableHttpResponse response = httpClient.execute(httpPost);
+            final CloseableHttpResponse response = httpClient.execute(httpPost);
 
-            String json = EntityUtils.toString(response.getEntity());
-            T entity = gson.fromJson(json, responseType);
-            return new Response<T>(response.getCode(), entity);
+            final T responseBody = gson.fromJson(
+                    EntityUtils.toString(response.getEntity()),
+                    responseType
+            );
+            final Response<T> responseEntity = new Response<T>(response.getCode(), responseBody);
+            RestClientUtils.checkResultCode(responseEntity.getCode());
+
+            return responseBody;
         } catch (IOException | ParseException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public Response<T> Put(final String token, final String url, final LinkedHashMap<String, Object> params, Class<T> responseType) {
-        CloseableHttpClient httpClient = HttpClients.createDefault();
+    public T Put(final String token, final String url, final LinkedHashMap<String, Object> params, Class<T> responseType) {
+        final CloseableHttpClient httpClient = HttpClients.createDefault();
         try {
-            HttpPut httpPut = new HttpPut(Constants.URL_DEV + url);
-            String entityString = gson.toJson(params);
-
-            StringEntity stringEntity = new StringEntity(entityString);
+            final HttpPut httpPut = new HttpPut(Constants.URL_DEV + url);
+            final StringEntity stringEntity = new StringEntity(gson.toJson(params));
             httpPut.setEntity(stringEntity);
 
             httpPut.setHeader(HttpHeaders.AUTHORIZATION, token);
             httpPut.setHeader(HttpHeaders.ACCEPT, "application/json");
             httpPut.setHeader(HttpHeaders.CONTENT_TYPE, "application/json");
 
-            CloseableHttpResponse response = httpClient.execute(httpPut);
-            String json = EntityUtils.toString(response.getEntity());
-            T entity = gson.fromJson(json, responseType);
-            return new Response<T>(response.getCode(), entity);
+            final CloseableHttpResponse response = httpClient.execute(httpPut);
+            final T responseBody = gson.fromJson(
+                    EntityUtils.toString(response.getEntity()),
+                    responseType
+            );
+            final Response<T> responseEntity = new Response<T>(response.getCode(), responseBody);
+            RestClientUtils.checkResultCode(responseEntity.getCode());
+
+            return responseBody;
         } catch (IOException | ParseException e) {
             throw new RuntimeException(e);
         }
     }
 
     public int Delete(final String token, final String url) {
-        CloseableHttpClient httpClient = HttpClients.createDefault();
+        final CloseableHttpClient httpClient = HttpClients.createDefault();
         try {
-            HttpDelete httpDelete = new HttpDelete(Constants.URL_DEV + url);
+            final HttpDelete httpDelete = new HttpDelete(Constants.URL_DEV + url);
             httpDelete.setHeader(HttpHeaders.AUTHORIZATION, token);
             httpDelete.setHeader(HttpHeaders.CONTENT_TYPE, "application/json");
 
-            CloseableHttpResponse response = httpClient.execute(httpDelete);
+            final CloseableHttpResponse response = httpClient.execute(httpDelete);
             return response.getCode();
         } catch (IOException e) {
             throw new RuntimeException(e);

@@ -1,6 +1,6 @@
 package dto;
 
-public class Car {
+public class CarDTO {
     private int id;
     private String engineType;
     private String mark;

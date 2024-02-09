@@ -1,23 +1,22 @@
 package services;
 
-import base.Response;
-import dto.Car;
+import dto.CarDTO;
 
 public interface CarsClient {
-    Response<Car[]> getCars();
+    CarDTO[] getCars();
 
-    Response<Car> getCar(final int id);
+    CarDTO getCar(final int id);
 
-    Response<Car[]> getUsersCars(final int userId);
+    CarDTO[] getUsersCars(final int userId);
 
-    Response<Car> createCar(
+    CarDTO createCar(
             final String engineType,
             final String mark,
             final String model,
             final double price
     );
 
-    Response<Car> updateCar(
+    CarDTO updateCar(
             final int id,
             final String engineType,
             final String mark,

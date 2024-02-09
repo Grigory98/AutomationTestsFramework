@@ -1,8 +1,7 @@
 package services;
 
 import base.Request;
-import base.Response;
-import dto.Car;
+import dto.CarDTO;
 
 import java.util.LinkedHashMap;
 
@@ -13,28 +12,28 @@ public class CarsClientImpl implements CarsClient {
     /**
      * Получить все машины
      */
-    public Response<Car[]> getCars() {
-        return new Request<Car[]>().Get("/cars", Car[].class);
+    public CarDTO[] getCars() {
+        return new Request<CarDTO[]>().Get("/cars", CarDTO[].class);
     }
 
     /**
      * Получить машину по id
      */
-    public Response<Car> getCar(final int id) {
-        return new Request<Car>().Get("/car/" + id, Car.class);
+    public CarDTO getCar(final int id) {
+        return new Request<CarDTO>().Get("/car/" + id, CarDTO.class);
     }
 
     /**
      * Получить все машины у userId пользователя
      */
-    public Response<Car[]> getUsersCars(final int userId) {
-        return new Request<Car[]>().Get("/usersCars/" + userId, Car[].class);
+    public CarDTO[] getUsersCars(final int userId) {
+        return new Request<CarDTO[]>().Get("/usersCars/" + userId, CarDTO[].class);
     }
 
     /**
      * Создать новую машину
      */
-    public Response<Car> createCar(
+    public CarDTO createCar(
             final String engineType,
             final String mark,
             final String model,
@@ -46,13 +45,13 @@ public class CarsClientImpl implements CarsClient {
         params.put("model", model);
         params.put("price", price);
 
-        return new Request<Car>().Post(token, "/car", params, Car.class);
+        return new Request<CarDTO>().Post(token, "/car", params, CarDTO.class);
     }
 
     /**
      * Изменить данные машины по id
      */
-    public Response<Car> updateCar(
+    public CarDTO updateCar(
             final int id,
             final String engineType,
             final String mark,
@@ -65,14 +64,14 @@ public class CarsClientImpl implements CarsClient {
         params.put("model", model);
         params.put("price", price);
 
-        return new Request<Car>().Put(token, "/car/" + id, params, Car.class);
+        return new Request<CarDTO>().Put(token, "/car/" + id, params, CarDTO.class);
     }
 
     /**
      * Удалить машину
      */
     public int deleteCar(final int carId) {
-        return new Request<Car>().Delete(token, "/car/" + carId);
+        return new Request<CarDTO>().Delete(token, "/car/" + carId);
     }
 
 }

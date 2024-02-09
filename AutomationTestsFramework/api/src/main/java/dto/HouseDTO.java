@@ -1,12 +1,12 @@
 package dto;
 
-public class House {
+public class HouseDTO {
     private int id;
     private String floorCount;
     private double price;
-    private ParkingPlace[] parkingPlaces;
+    private ParkingPlaceDTO[] parkingPlaceDTOS;
 
-    private User[] lodgers;
+    private UserDTO[] lodgers;
 
     public int getId() {
         return id;
@@ -19,11 +19,11 @@ public class House {
         return price;
     }
 
-    public ParkingPlace[] getParkingPlaces() {
-        return parkingPlaces;
+    public ParkingPlaceDTO[] getParkingPlaces() {
+        return parkingPlaceDTOS;
     }
 
-    public User[] getLodgers() {
+    public UserDTO[] getLodgers() {
         return lodgers;
     }
 

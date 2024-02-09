@@ -1,7 +1,7 @@
 import base.Response;
-import dto.House;
-import dto.ParkingPlace;
-import dto.User;
+import dto.HouseDTO;
+import dto.ParkingPlaceDTO;
+import dto.UserDTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import services.HouseClientImpl;
@@ -12,12 +12,9 @@ public class CreateHouseTest {
     public void createHouse() {
         HouseClientImpl houseClient = new HouseClientImpl();
 
-
-        ParkingPlace parkingPlace1 = houseClient.createParkingPlace(false, false, 228);
-        ParkingPlace parkingPlace2 = houseClient.createParkingPlace(true, true, 10000);
-        Response<House> response = houseClient.createHouse(1, 1000, new ParkingPlace[] {parkingPlace1, parkingPlace2});
-
-        Assertions.assertEquals(201, response.getCode(), "Код должен быть 201");
+        ParkingPlaceDTO parkingPlaceDTO1 = houseClient.createParkingPlace(false, false, 228);
+        ParkingPlaceDTO parkingPlaceDTO2 = houseClient.createParkingPlace(true, true, 10000);
+        HouseDTO response = houseClient.createHouse(1, 1000, new ParkingPlaceDTO[] {parkingPlaceDTO1, parkingPlaceDTO2});
     }
 
     @Test
@@ -25,12 +22,10 @@ public class CreateHouseTest {
         HouseClientImpl houseClient = new HouseClientImpl();
         UserClientImpl userClient = new UserClientImpl();
 
-        User user = userClient.getUser(6867).getObject();
-        House house = houseClient.getHouse(50).getObject();
+        UserDTO userDTO = userClient.getUser(6867);
+        HouseDTO houseDTO = houseClient.getHouse(50);
 
-        Response<House> response = houseClient.addLodger(house.getId(), user.getId());
-
-        Assertions.assertEquals(200, response.getCode(), "Код должен быть 200");
+        HouseDTO response = houseClient.addLodger(houseDTO.getId(), userDTO.getId());
     }
 
     @Test
@@ -38,11 +33,9 @@ public class CreateHouseTest {
         HouseClientImpl houseClient = new HouseClientImpl();
         UserClientImpl userClient = new UserClientImpl();
 
-        User user = userClient.getUser(6862).getObject();
-        House house = houseClient.getHouse(50).getObject();
+        UserDTO userDTO = userClient.getUser(6862);
+        HouseDTO houseDTO = houseClient.getHouse(50);
 
-        Response<House> response = houseClient.removeLodger(house.getId(), user.getId());
-
-        Assertions.assertEquals(200, response.getCode(), "Код должен быть 200");
+        HouseDTO response = houseClient.removeLodger(houseDTO.getId(), userDTO.getId());
     }
 }

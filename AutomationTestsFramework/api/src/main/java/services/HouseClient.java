@@ -1,34 +1,33 @@
 package services;
 
-import base.Response;
-import dto.House;
-import dto.ParkingPlace;
+import dto.HouseDTO;
+import dto.ParkingPlaceDTO;
 
 public interface HouseClient {
-    Response<House[]> getHouses();
+    HouseDTO[] getHouses();
 
-    Response<House> getHouse(final int houseId);
+    HouseDTO getHouse(final int houseId);
 
-    Response<House> createHouse(
+    HouseDTO createHouse(
             final int floorCount,
             final double price,
-            final ParkingPlace[] parkingPlaces
+            final ParkingPlaceDTO[] parkingPlaceDTOS
     );
 
-    Response<House> updateHouse(
+    HouseDTO updateHouse(
             final int houseId,
             final int floorCount,
             final double price,
-            final ParkingPlace[] parkingPlaces
+            final ParkingPlaceDTO[] parkingPlaceDTOS
     );
 
     int deleteHouse(final int houseId);
 
-    Response<House> addLodger(final int houseId, final int userId);
+    HouseDTO addLodger(final int houseId, final int userId);
 
-    Response<House> removeLodger(final int houseId, final int userId);
+    HouseDTO removeLodger(final int houseId, final int userId);
 
-    ParkingPlace createParkingPlace(
+    ParkingPlaceDTO createParkingPlace(
             final boolean isWarm,
             final boolean isCovered,
             final int price

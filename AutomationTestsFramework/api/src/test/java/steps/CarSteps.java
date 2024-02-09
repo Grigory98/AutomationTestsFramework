@@ -1,7 +1,6 @@
 package steps;
 
-import base.Response;
-import dto.Car;
+import dto.CarDTO;
 import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
 import services.CarsClientImpl;
@@ -9,15 +8,14 @@ import services.CarsClientImpl;
 public class CarSteps {
     CarsClientImpl carClient = new CarsClientImpl();
     @Step("Создать новую машину")
-    public Car createCar(
+    public CarDTO createCar(
             final String engineType,
             final String mark,
             final String model,
             final double price
     ) {
-        Response<Car> response = carClient.createCar(engineType, mark, model, price);
-        Assertions.assertEquals(201, response.getCode(), "Код должен быть 201");
-        return response.getObject();
+        CarDTO response = carClient.createCar(engineType, mark, model, price);
+        return response;
     }
 
     @Step("Удалить машину {carId}")

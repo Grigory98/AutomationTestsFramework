@@ -1,25 +1,24 @@
 package services;
 
-import base.Response;
-import dto.User;
-import dto.UserInfo;
+import dto.UserDTO;
+import dto.UserInfoDTO;
 
 public interface UserClient {
 
-    Response<User[]> getUsers();
+    UserDTO[] getUsers();
 
-    Response<User> getUser(int id);
+    UserDTO getUser(int id);
 
-    Response<UserInfo> getUserInfo(int id);
+    UserInfoDTO getUserInfo(int id);
 
-    Response<User> createUser(
+    UserDTO createUser(
             final String firstName,
             final String secondName,
             final int age, String sex,
             final double money
     );
 
-    Response<User> updateUser(
+    UserDTO updateUser(
             final int id,
             final String firstName,
             final String secondName,
@@ -27,11 +26,11 @@ public interface UserClient {
             final double money
     );
 
-    Response<User> addMoney(int userId, double amount);
+    UserDTO addMoney(int userId, double amount);
 
-    Response<User> buyCar(final int userId, final int carId);
+    UserDTO buyCar(final int userId, final int carId);
 
-    Response<User> sellCar(final int userId, final int carId);
+    UserDTO sellCar(final int userId, final int carId);
 
     int deleteUser(final int userId);
 }

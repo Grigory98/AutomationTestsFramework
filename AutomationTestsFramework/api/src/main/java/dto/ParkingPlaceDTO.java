@@ -1,6 +1,6 @@
 package dto;
 
-public class ParkingPlace {
+public class ParkingPlaceDTO {
     private boolean isWarm;
     private boolean isCovered;
     private int placesCount;
@@ -17,7 +17,7 @@ public class ParkingPlace {
         return placesCount;
     }
 
-    public ParkingPlace(final boolean isWarm, final boolean isCovered, final int placesCount) {
+    public ParkingPlaceDTO(final boolean isWarm, final boolean isCovered, final int placesCount) {
         this.isWarm = isWarm;
         this.isCovered = isCovered;
         this.placesCount = placesCount;
