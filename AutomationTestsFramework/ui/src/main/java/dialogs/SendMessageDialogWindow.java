@@ -42,7 +42,12 @@ public class SendMessageDialogWindow extends AbstractPage {
     }
 
     public void closeWindow() {
-        closeWindowButton.click();
+        try {
+            Thread.sleep(1000);
+            closeWindowButton.click();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void saveMessageAsDraft() {

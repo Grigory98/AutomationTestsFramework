@@ -1,3 +1,5 @@
+package generates;
+
 import java.util.Random;
 
 public class TestDataGenerate {

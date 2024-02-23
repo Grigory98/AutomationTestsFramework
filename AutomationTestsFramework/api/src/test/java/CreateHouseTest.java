@@ -1,41 +1,60 @@
-import base.Response;
 import dto.HouseDTO;
 import dto.ParkingPlaceDTO;
 import dto.UserDTO;
+import generates.TestDataGenerate;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import services.HouseClientImpl;
 import services.UserClientImpl;
 
 public class CreateHouseTest {
-    @Test
-    public void createHouse() {
-        HouseClientImpl houseClient = new HouseClientImpl();
+    private final UserClientImpl userSteps = new UserClientImpl();
+    private final HouseClientImpl houseClient = new HouseClientImpl();
+    private UserDTO userDTO;
+    private HouseDTO house;
 
-        ParkingPlaceDTO parkingPlaceDTO1 = houseClient.createParkingPlace(false, false, 228);
-        ParkingPlaceDTO parkingPlaceDTO2 = houseClient.createParkingPlace(true, true, 10000);
-        HouseDTO response = houseClient.createHouse(1, 1000, new ParkingPlaceDTO[] {parkingPlaceDTO1, parkingPlaceDTO2});
+    @BeforeEach
+    public void createUser() {
+        final String firstName = TestDataGenerate.generateString(10);
+        final String secondName = TestDataGenerate.generateString(10);
+        final int age = TestDataGenerate.generateInt(1, 100);
+        final int money = TestDataGenerate.generateInt(1, 10000);
+        userDTO = userSteps.createUser(firstName, secondName, age, "MALE", money);
+    }
+
+    @BeforeEach
+    public void createHouse() {
+        ParkingPlaceDTO parkingPlaceFirst = houseClient.createParkingPlace(false, false, 228);
+        ParkingPlaceDTO parkingPlaceSecond = houseClient.createParkingPlace(true, true, 10000);
+        house = houseClient.createHouse(1, 1000, new ParkingPlaceDTO[] { parkingPlaceFirst, parkingPlaceSecond });
+    }
+
+    @AfterEach
+    public void deleteUser() {
+        userSteps.deleteUser(userDTO.getId());
+        houseClient.deleteHouse(house.getId());
+    }
+
+    @Test
+    public void createHouseTest() {
+        Assertions.assertEquals(
+                house.getId(),
+                houseClient.getHouse(house.getId()).getId()
+        );
     }
 
     @Test
     public void moveLodgerToHouseTest() {
-        HouseClientImpl houseClient = new HouseClientImpl();
-        UserClientImpl userClient = new UserClientImpl();
-
-        UserDTO userDTO = userClient.getUser(6867);
-        HouseDTO houseDTO = houseClient.getHouse(50);
-
-        HouseDTO response = houseClient.addLodger(houseDTO.getId(), userDTO.getId());
+        final HouseDTO updHouse = houseClient.addLodger(house.getId(), userDTO.getId());
+        Assertions.assertEquals(updHouse.getLodgers().length, 1, "Количество жильцов равно 1");
     }
 
     @Test
     public void removeLodgerFromHouseTest() {
-        HouseClientImpl houseClient = new HouseClientImpl();
-        UserClientImpl userClient = new UserClientImpl();
-
-        UserDTO userDTO = userClient.getUser(6862);
-        HouseDTO houseDTO = houseClient.getHouse(50);
-
-        HouseDTO response = houseClient.removeLodger(houseDTO.getId(), userDTO.getId());
+        houseClient.addLodger(house.getId(), userDTO.getId());
+        final HouseDTO updHouse = houseClient.removeLodger(house.getId(), userDTO.getId());
+        Assertions.assertEquals(updHouse.getLodgers().length, 0, "Количество жильцов равно 0");
     }
 }
