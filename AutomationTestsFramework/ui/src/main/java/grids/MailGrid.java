@@ -43,7 +43,7 @@ public class MailGrid extends AbstractGrid {
 
     public void startSearchFavorite() {
         searchPanelButton.click();
-        DriversManager.current().findElement(By.cssSelector("[data-navigation-index = \"6\"]")).click();
+        DriversManager.current().findElement(By.cssSelector("[data-navigation-index = \"5\"]")).click();
     }
 
     public void resetSearch() {
