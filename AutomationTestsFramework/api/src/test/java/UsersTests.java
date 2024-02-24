@@ -2,12 +2,18 @@ import dto.CarDTO;
 import dto.UserDTO;
 import dto.UserInfoDTO;
 import generates.TestDataGenerate;
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Owner;
 import org.junit.jupiter.api.*;
 import services.CarsClientImpl;
 import services.UserClientImpl;
 
 import java.util.Arrays;
 
+@Epic("API")
+@Feature("Тесты на взаимодействие пользователей")
 public class UsersTests {
     private final UserClientImpl userClient = new UserClientImpl();
     private final CarsClientImpl carsClient = new CarsClientImpl();
@@ -27,8 +33,10 @@ public class UsersTests {
         userClient.deleteUser(userDTO.getId());
     }
 
-    @Test
+    @Owner("Grigory98")
     @DisplayName("Проверка создания пользователя")
+    @Description("Тест на проверку создания нового пользователя")
+    @Test
     public void createUserTest() {
         Assertions.assertEquals(
                 userDTO.getId(),
@@ -37,8 +45,10 @@ public class UsersTests {
         );
     }
 
-    @Test
+    @Owner("Grigory98")
     @DisplayName("Проверка изменения пользователя")
+    @Description("Тест на проверку изменения данных пользователя")
+    @Test
     public void updateUserTest() {
         final UserDTO updatedUserDTO = updateUser();
         Assertions.assertEquals(userDTO.getId(), updatedUserDTO.getId(), "Id пользователей совпадает");
@@ -49,8 +59,10 @@ public class UsersTests {
         Assertions.assertNotEquals(userDTO.getMoney(), updatedUserDTO.getMoney(), "Сумма пользователей разное");
     }
 
-    @Test
+    @Owner("Grigory98")
     @DisplayName("Добавление денег пользователю")
+    @Description("Тест на добавление случайно сгенерированной суммы пользователю")
+    @Test
     public void addMoneyTest() {
         final int money = TestDataGenerate.generateInt(1, 10000);
         final double expectedUserAmount = userDTO.getMoney() + money;
@@ -59,8 +71,10 @@ public class UsersTests {
         Assertions.assertEquals(userDTO.getMoney(), expectedUserAmount, "Сумма у пользователя совпадает с ожидаемым");
     }
 
-    @Test
+    @Owner("Grigory98")
     @DisplayName("Покупка нескольких машин пользователем")
+    @Description("Тест на покупку нескольких машин пользователю")
+    @Test
     public void buyCars() {
         int price = 100000;
         userClient.addMoney(userDTO.getId(), price * 2);

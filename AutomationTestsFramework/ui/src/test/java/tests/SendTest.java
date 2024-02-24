@@ -1,9 +1,11 @@
 package tests;
 
 import core.DriversManager;
+import io.qameta.allure.Epic;
 import org.junit.jupiter.api.BeforeEach;
 import steps.MailSteps;
 
+@Epic("UI")
 public class SendTest extends MainTest {
     @BeforeEach
     public void beforeSendMessage() {
