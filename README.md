@@ -1,9 +1,11 @@
 # AutomationTestsFramework
 
-Проект содержит несколько модулей:
--api
--ui
--utils
+<h2>Проект содержит несколько модулей:</h2>
+<ul>
+  <li>api</li>
+  <li>ui</li>
+  <li>utils</li>
+</ul>
 
 UI модуль:
 Использует JUnit, Maven, Selenium
