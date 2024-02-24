@@ -2,6 +2,7 @@ package services;
 
 import base.Request;
 import dto.CarDTO;
+import io.qameta.allure.Step;
 
 import java.util.LinkedHashMap;
 
@@ -9,30 +10,22 @@ public class CarsClientImpl implements CarsClient {
 
     private final String token = Token.authorization();
 
-    /**
-     * Получить все машины
-     */
+    @Step("Получить все машины")
     public CarDTO[] getCars() {
         return new Request<CarDTO[]>().Get("/cars", CarDTO[].class);
     }
 
-    /**
-     * Получить машину по id
-     */
+    @Step("Получить машину с id = {id}")
     public CarDTO getCar(final int id) {
         return new Request<CarDTO>().Get("/car/" + id, CarDTO.class);
     }
 
-    /**
-     * Получить все машины у userId пользователя
-     */
+    @Step("Получить все машины у пользователя c id = {userId}")
     public CarDTO[] getUsersCars(final int userId) {
         return new Request<CarDTO[]>().Get("/usersCars/" + userId, CarDTO[].class);
     }
 
-    /**
-     * Создать новую машину
-     */
+    @Step("Создать новую машину")
     public CarDTO createCar(
             final String engineType,
             final String mark,
@@ -48,9 +41,7 @@ public class CarsClientImpl implements CarsClient {
         return new Request<CarDTO>().Post(token, "/car", params, CarDTO.class);
     }
 
-    /**
-     * Изменить данные машины по id
-     */
+    @Step("Изменить данные машины с id = {id}")
     public CarDTO updateCar(
             final int id,
             final String engineType,
@@ -67,9 +58,7 @@ public class CarsClientImpl implements CarsClient {
         return new Request<CarDTO>().Put(token, "/car/" + id, params, CarDTO.class);
     }
 
-    /**
-     * Удалить машину
-     */
+    @Step("Удалить машину {carId}")
     public int deleteCar(final int carId) {
         return new Request<CarDTO>().Delete(token, "/car/" + carId);
     }
