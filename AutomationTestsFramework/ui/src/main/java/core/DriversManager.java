@@ -1,5 +1,8 @@
 package core;
 
+import io.qameta.allure.Attachment;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -26,6 +29,11 @@ public class DriversManager {
             _current.get(ApplicationConfig.url);
         }
         return _current;
+    }
+
+    @Attachment(value = "Screenshoot", type = "image/png")
+    public static byte[] screenshoot() {
+        return ((TakesScreenshot) DriversManager.current()).getScreenshotAs(OutputType.BYTES);
     }
 
     public static void closeBrowser() {
