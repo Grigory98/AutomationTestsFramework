@@ -19,7 +19,7 @@
 
 <h2>Запуск тестов</h2>
 Для запуска тестов необходимо в корневом каталоге AutomationTestFramework запустить команду:
-<p><b>mvn test -DtestFailureIgnore=true</b></p>
+<p><b>mvn test</b></p>
 
 <p>Allure отчеты генерируеются в каждом проекте отдельно в директории target/allure-results</p> 
 Для генерации отчётов необходимо запустить команду:
