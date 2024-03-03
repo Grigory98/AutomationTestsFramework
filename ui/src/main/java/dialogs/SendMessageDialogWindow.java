@@ -30,7 +30,7 @@ public class SendMessageDialogWindow extends AbstractPage {
     private WebElement closeWindowButton;
 
     public void fillForWhom() {
-        forWhom.sendKeys(ApplicationConfig.username);
+        forWhom.sendKeys(ApplicationConfig.USERNAME);
     }
 
     public void fillTopic(String text) {

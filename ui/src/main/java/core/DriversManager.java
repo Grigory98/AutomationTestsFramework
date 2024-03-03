@@ -21,12 +21,12 @@ public class DriversManager {
         if (!DriversManager.isDriverExist()) {
             ChromeOptions chromeOptions = new ChromeOptions();
             chromeOptions.addArguments("--remote-allow-origins=*");
-            if(ApplicationConfig.headlessMode)
+            if(ApplicationConfig.HEADLESS_MODE)
                 chromeOptions.addArguments("--headless");
             _current = new ChromeDriver(chromeOptions);
             _current.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
             _current.manage().window().maximize();
-            _current.get(ApplicationConfig.url);
+            _current.get(ApplicationConfig.URL);
         }
         return _current;
     }

@@ -1,8 +1,8 @@
 package core;
 
 public class ApplicationConfig {
-    public static final String url = "https://mail.ru/";
-    public static final boolean headlessMode = false;
-    public static final String username = "yourLogin@mail.ru";
-    public static final String password = "yourPassword";
+    public static final String URL = "https://mail.ru/";
+    public static final boolean HEADLESS_MODE = false;
+    public static final String USERNAME = "yourLogin@mail.ru";
+    public static final String PASSWORD = "yourPassword";
 }
