@@ -11,7 +11,7 @@ public class Token {
         final LinkedHashMap<String, Object> params = new LinkedHashMap<>();
         params.put("username", Constants.LOGIN);
         params.put("password", Constants.PASSWORD);
-        TokenMap response = new Request<TokenMap>().Post(null, "/login", params, TokenMap.class);
+        TokenMap response = new Request<TokenMap>().post(null, "/login", params, TokenMap.class);
         return "Bearer " + response.getToken();
     }
 }

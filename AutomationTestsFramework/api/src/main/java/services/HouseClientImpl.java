@@ -13,12 +13,12 @@ public class HouseClientImpl implements HouseClient {
 
     @Step("Получить все дома")
     public HouseDTO[] getHouses() {
-        return new Request<HouseDTO[]>().Get("/houses", HouseDTO[].class);
+        return new Request<HouseDTO[]>().get("/houses", HouseDTO[].class);
     }
 
     @Step("Получить дом {houseId}")
     public HouseDTO getHouse(final int houseId) {
-        return new Request<HouseDTO>().Get("/house/" + houseId, HouseDTO.class);
+        return new Request<HouseDTO>().get("/house/" + houseId, HouseDTO.class);
     }
 
     @Step("Создать новый дом")
@@ -32,7 +32,7 @@ public class HouseClientImpl implements HouseClient {
         params.put("price", price);
         params.put("parkingPlaces", parkingPlaceDTOS);
 
-        return new Request<HouseDTO>().Post(token, "/house", params, HouseDTO.class);
+        return new Request<HouseDTO>().post(token, "/house", params, HouseDTO.class);
     }
 
     @Step("Изменить данные дома {houseId}")
@@ -47,22 +47,22 @@ public class HouseClientImpl implements HouseClient {
         params.put("price", price);
         params.put("parkingPlaces", parkingPlaceDTOS);
 
-        return new Request<HouseDTO>().Put(token, "/house/" + houseId, params, HouseDTO.class);
+        return new Request<HouseDTO>().put(token, "/house/" + houseId, params, HouseDTO.class);
     }
 
     @Step("Удалить дом {houseId}")
     public int deleteHouse(final int houseId) {
-        return new Request<HouseDTO>().Delete(token, "/house/" + houseId);
+        return new Request<HouseDTO>().delete(token, "/house/" + houseId);
     }
 
     @Step("Заселить жильца {userId} в дом {houseId}")
     public HouseDTO addLodger(final int houseId, final int userId) {
-        return new Request<HouseDTO>().Post(token, "/house/" + houseId + "/settle/" + userId, null, HouseDTO.class);
+        return new Request<HouseDTO>().post(token, "/house/" + houseId + "/settle/" + userId, null, HouseDTO.class);
     }
 
     @Step("Выселить жильца {userId} из дома {houseId}")
     public HouseDTO removeLodger(final int houseId, final int userId) {
-        return new Request<HouseDTO>().Post(token, "/house/" + houseId + "/evict/" + userId, null, HouseDTO.class);
+        return new Request<HouseDTO>().post(token, "/house/" + houseId + "/evict/" + userId, null, HouseDTO.class);
     }
 
     @Step("Создать новое парковочное место")

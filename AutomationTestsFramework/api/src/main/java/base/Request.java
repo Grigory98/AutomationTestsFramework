@@ -21,7 +21,7 @@ public class Request<T> {
 
     private final Gson gson = new Gson();
 
-    public T Get(final String url, Class<T> responseType) {
+    public T get(final String url, Class<T> responseType) {
         final CloseableHttpClient httpClient = HttpClients.createDefault();
         final HttpGet httpGet = new HttpGet(Constants.URL_DEV + url);
         try {
@@ -31,7 +31,7 @@ public class Request<T> {
                     responseType
             );
             final Response<T> responseEntity = new Response<T>(response.getCode(), responseBody);
-            RestClientUtils.checkResultCode(responseEntity.getCode());
+            responseEntity.checkResultCode();
 
             return responseBody;
         } catch (IOException | ParseException e) {
@@ -39,7 +39,7 @@ public class Request<T> {
         }
     }
 
-    public T Post(final String token, final String url, final LinkedHashMap<String, Object> params, Class<T> responseType) {
+    public T post(final String token, final String url, final LinkedHashMap<String, Object> params, Class<T> responseType) {
         final CloseableHttpClient httpClient = HttpClients.createDefault();
         try {
             final HttpPost httpPost = new HttpPost(Constants.URL_DEV + url);
@@ -55,7 +55,7 @@ public class Request<T> {
                     responseType
             );
             final Response<T> responseEntity = new Response<T>(response.getCode(), responseBody);
-            RestClientUtils.checkResultCode(responseEntity.getCode());
+            responseEntity.checkResultCode();
 
             return responseBody;
         } catch (IOException | ParseException e) {
@@ -63,7 +63,7 @@ public class Request<T> {
         }
     }
 
-    public T Put(final String token, final String url, final LinkedHashMap<String, Object> params, Class<T> responseType) {
+    public T put(final String token, final String url, final LinkedHashMap<String, Object> params, Class<T> responseType) {
         final CloseableHttpClient httpClient = HttpClients.createDefault();
         try {
             final HttpPut httpPut = new HttpPut(Constants.URL_DEV + url);
@@ -80,7 +80,7 @@ public class Request<T> {
                     responseType
             );
             final Response<T> responseEntity = new Response<T>(response.getCode(), responseBody);
-            RestClientUtils.checkResultCode(responseEntity.getCode());
+            responseEntity.checkResultCode();
 
             return responseBody;
         } catch (IOException | ParseException e) {
@@ -88,7 +88,7 @@ public class Request<T> {
         }
     }
 
-    public int Delete(final String token, final String url) {
+    public int delete(final String token, final String url) {
         final CloseableHttpClient httpClient = HttpClients.createDefault();
         try {
             final HttpDelete httpDelete = new HttpDelete(Constants.URL_DEV + url);

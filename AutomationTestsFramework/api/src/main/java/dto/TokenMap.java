@@ -1,9 +1,12 @@
 package dto;
 
+import com.google.gson.annotations.SerializedName;
+
 public class TokenMap {
-    private String access_token;
+    @SerializedName("access_token")
+    private String accessToken;
 
     public String getToken() {
-        return access_token;
+        return accessToken;
     }
 }
