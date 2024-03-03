@@ -17,8 +17,7 @@ import org.apache.hc.core5.http.io.entity.StringEntity;
 import java.io.IOException;
 import java.util.LinkedHashMap;
 
-public class Request<T> {
-
+public class Request<T> implements IRequest<T> {
     private final Gson gson = new Gson();
 
     public T get(final String url, Class<T> responseType) {
@@ -30,9 +29,7 @@ public class Request<T> {
                     EntityUtils.toString(response.getEntity()),
                     responseType
             );
-            final Response<T> responseEntity = new Response<T>(response.getCode(), responseBody);
-            responseEntity.checkResultCode();
-
+            new Response<T>(response.getCode(), responseBody).checkResultCode();
             return responseBody;
         } catch (IOException | ParseException e) {
             throw new RuntimeException(e);
@@ -54,9 +51,7 @@ public class Request<T> {
                     EntityUtils.toString(response.getEntity()),
                     responseType
             );
-            final Response<T> responseEntity = new Response<T>(response.getCode(), responseBody);
-            responseEntity.checkResultCode();
-
+            new Response<T>(response.getCode(), responseBody).checkResultCode();
             return responseBody;
         } catch (IOException | ParseException e) {
             throw new RuntimeException(e);
@@ -79,9 +74,7 @@ public class Request<T> {
                     EntityUtils.toString(response.getEntity()),
                     responseType
             );
-            final Response<T> responseEntity = new Response<T>(response.getCode(), responseBody);
-            responseEntity.checkResultCode();
-
+            new Response<T>(response.getCode(), responseBody).checkResultCode();
             return responseBody;
         } catch (IOException | ParseException e) {
             throw new RuntimeException(e);
