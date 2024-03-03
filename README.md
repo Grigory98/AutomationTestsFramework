@@ -18,6 +18,10 @@
 Содержит в себе единственный класс для генерации названий.
 
 <h2>Запуск тестов</h2>
+<b>Перед запуском тестов необходимо заполнить учетные данные в конфиг файлах!!!</b>
+1) Перейти в api/src/main/java/config/Constants.java и заполнить свойства LOGIN и PASSWORD
+2) Перейти в ui/src/main/java/core/ApplicationConfig.java и заполнить свойства USERNAME и PASSWORD
+
 Для запуска тестов необходимо в корневом каталоге AutomationTestFramework запустить команду:
 <p><b>mvn test</b></p>
 
