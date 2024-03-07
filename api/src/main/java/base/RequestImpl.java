@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.util.Map;
 
 public class RequestImpl<T> implements Request<T> {
-    private final Gson gson = new Gson();
+    private static final Gson gson = new Gson();
 
     public T get(String url, Class<T> responseType) {
         CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -81,7 +81,7 @@ public class RequestImpl<T> implements Request<T> {
         }
     }
 
-    public int delete(String token, String url) {
+    public static int delete(String token, String url) {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         try {
             HttpDelete httpDelete = new HttpDelete(Constants.URL_DEV + url);

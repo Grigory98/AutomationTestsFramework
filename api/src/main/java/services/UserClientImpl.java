@@ -84,6 +84,6 @@ public class UserClientImpl implements UserClient {
 
     @Step("Удаление пользователя {userId}")
     public int deleteUser(int userId) {
-        return new RequestImpl<UserDTO>().delete(token, "/user/" + userId);
+        return RequestImpl.delete(token, "/user/" + userId);
     }
 }

@@ -22,7 +22,9 @@ public interface Request<T> {
 
     T put(String token, String url, Map<String, Object> params, Class<T> responseType);
 
-    int delete(String token, String url);
+    static int delete(String token, String url) {
+        return 0;
+    }
 
     default T post(String url, Map<String, Object> params, Class<T> responseType) {
         CloseableHttpClient httpClient = HttpClients.createDefault();

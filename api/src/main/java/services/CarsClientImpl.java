@@ -6,6 +6,8 @@ import io.qameta.allure.Step;
 
 import java.util.LinkedHashMap;
 
+import static base.RequestImpl.delete;
+
 public class CarsClientImpl implements CarsClient {
 
     private final String token = Token.authorization();
@@ -60,7 +62,7 @@ public class CarsClientImpl implements CarsClient {
 
     @Step("Удалить машину {carId}")
     public int deleteCar(int carId) {
-        return new RequestImpl<CarDTO>().delete(token, "/car/" + carId);
+        return RequestImpl.delete(token, "/car/" + carId);
     }
 
 }

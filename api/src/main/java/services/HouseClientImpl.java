@@ -52,7 +52,7 @@ public class HouseClientImpl implements HouseClient {
 
     @Step("Удалить дом {houseId}")
     public int deleteHouse(int houseId) {
-        return new RequestImpl<HouseDTO>().delete(token, "/house/" + houseId);
+        return RequestImpl.delete(token, "/house/" + houseId);
     }
 
     @Step("Заселить жильца {userId} в дом {houseId}")
