@@ -17,10 +17,10 @@ public class CreateHouseTest {
 
     @BeforeEach
     public void createUser() {
-        final String firstName = TestDataGenerate.generateString(10);
-        final String secondName = TestDataGenerate.generateString(10);
-        final int age = TestDataGenerate.generateInt(1, 100);
-        final int money = TestDataGenerate.generateInt(1, 10000);
+        String firstName = TestDataGenerate.generateString(10);
+        String secondName = TestDataGenerate.generateString(10);
+        int age = TestDataGenerate.generateInt(1, 100);
+        int money = TestDataGenerate.generateInt(1, 10000);
         userDTO = userSteps.createUser(firstName, secondName, age, "MALE", money);
     }
 
@@ -53,7 +53,7 @@ public class CreateHouseTest {
     @Description("Тест на заселение жильца в дом")
     @Test
     public void moveLodgerToHouseTest() {
-        final HouseDTO updHouse = houseClient.addLodger(house.getId(), userDTO.getId());
+        HouseDTO updHouse = houseClient.addLodger(house.getId(), userDTO.getId());
         Assertions.assertEquals(updHouse.getLodgers().length, 1, "Количество жильцов равно 1");
     }
 
@@ -63,7 +63,7 @@ public class CreateHouseTest {
     @Test
     public void removeLodgerFromHouseTest() {
         houseClient.addLodger(house.getId(), userDTO.getId());
-        final HouseDTO updHouse = houseClient.removeLodger(house.getId(), userDTO.getId());
+        HouseDTO updHouse = houseClient.removeLodger(house.getId(), userDTO.getId());
         Assertions.assertEquals(updHouse.getLodgers().length, 0, "Количество жильцов равно 0");
     }
 }

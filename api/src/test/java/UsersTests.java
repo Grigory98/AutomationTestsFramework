@@ -7,7 +7,9 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Owner;
 import org.junit.jupiter.api.*;
+import services.CarsClient;
 import services.CarsClientImpl;
+import services.UserClient;
 import services.UserClientImpl;
 
 import java.util.Arrays;
@@ -15,16 +17,16 @@ import java.util.Arrays;
 @Epic("API")
 @Feature("Тесты на взаимодействие пользователей")
 public class UsersTests {
-    private final UserClientImpl userClient = new UserClientImpl();
-    private final CarsClientImpl carsClient = new CarsClientImpl();
+    private final UserClient userClient = new UserClientImpl();
+    private final CarsClient carsClient = new CarsClientImpl();
     private UserDTO userDTO;
 
     @BeforeEach
     public void createUser() {
-        final String firstName = TestDataGenerate.generateString(10);
-        final String secondName = TestDataGenerate.generateString(10);
-        final int age = TestDataGenerate.generateInt(1, 100);
-        final int money = TestDataGenerate.generateInt(1, 10000);
+        String firstName = TestDataGenerate.generateString(10);
+        String secondName = TestDataGenerate.generateString(10);
+        int age = TestDataGenerate.generateInt(1, 100);
+        int money = TestDataGenerate.generateInt(1, 10000);
         userDTO = userClient.createUser(firstName, secondName, age, "MALE", money);
     }
 
@@ -50,7 +52,7 @@ public class UsersTests {
     @Description("Тест на проверку изменения данных пользователя")
     @Test
     public void updateUserTest() {
-        final UserDTO updatedUserDTO = updateUser();
+        UserDTO updatedUserDTO = updateUser();
         Assertions.assertEquals(userDTO.getId(), updatedUserDTO.getId(), "Id пользователей совпадает");
         Assertions.assertNotEquals(userDTO.getFirstName(), updatedUserDTO.getFirstName(), "Имя пользователей отличается");
         Assertions.assertNotEquals(userDTO.getSecondName(), updatedUserDTO.getSecondName(), "Фамилия пользователей отличается");
@@ -64,8 +66,8 @@ public class UsersTests {
     @Description("Тест на добавление случайно сгенерированной суммы пользователю")
     @Test
     public void addMoneyTest() {
-        final int money = TestDataGenerate.generateInt(1, 10000);
-        final double expectedUserAmount = userDTO.getMoney() + money;
+        int money = TestDataGenerate.generateInt(1, 10000);
+        double expectedUserAmount = userDTO.getMoney() + money;
         userClient.addMoney(userDTO.getId(), money);
         userDTO = userClient.getUser(userDTO.getId());
         Assertions.assertEquals(userDTO.getMoney(), expectedUserAmount, "Сумма у пользователя совпадает с ожидаемым");
@@ -78,8 +80,8 @@ public class UsersTests {
     public void buyCars() {
         int price = 100000;
         userClient.addMoney(userDTO.getId(), price * 2);
-        final CarDTO labma = carsClient.createCar("Electric", "Lamba", "Gallardo", price);
-        final CarDTO ferra = carsClient.createCar("Gasoline", "Ferra", "California", price);
+        CarDTO labma = carsClient.createCar("Electric", "Lamba", "Gallardo", price);
+        CarDTO ferra = carsClient.createCar("Gasoline", "Ferra", "California", price);
         try {
             userClient.buyCar(userDTO.getId(), labma.getId());
             userClient.buyCar(userDTO.getId(), ferra.getId());
@@ -98,10 +100,10 @@ public class UsersTests {
     }
 
     private UserDTO updateUser() {
-        final String firstName = TestDataGenerate.generateString(10);
-        final String secondName = TestDataGenerate.generateString(10);
-        final int age = TestDataGenerate.generateInt(1, 100);
-        final int money = TestDataGenerate.generateInt(1, 10000);
+        String firstName = TestDataGenerate.generateString(10);
+        String secondName = TestDataGenerate.generateString(10);
+        int age = TestDataGenerate.generateInt(1, 100);
+        int money = TestDataGenerate.generateInt(1, 10000);
         return userClient.updateUser(userDTO.getId(), firstName, secondName, age,"MALE", money);
     }
 }

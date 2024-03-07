@@ -10,19 +10,19 @@ public interface CarsClient {
     CarDTO[] getUsersCars(final int userId);
 
     CarDTO createCar(
-            final String engineType,
-            final String mark,
-            final String model,
-            final double price
+            String engineType,
+            String mark,
+            String model,
+            double price
     );
 
     CarDTO updateCar(
-            final int id,
-            final String engineType,
-            final String mark,
-            final String model,
-            final double price
+            int id,
+            String engineType,
+            String mark,
+            String model,
+            double price
     );
 
-    int deleteCar(final int carId);
+    int deleteCar(int carId);
 }

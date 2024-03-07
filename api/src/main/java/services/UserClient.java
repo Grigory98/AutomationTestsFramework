@@ -12,25 +12,25 @@ public interface UserClient {
     UserInfoDTO getUserInfo(int id);
 
     UserDTO createUser(
-            final String firstName,
-            final String secondName,
-            final int age, String sex,
-            final double money
+            String firstName,
+            String secondName,
+            int age, String sex,
+            double money
     );
 
     UserDTO updateUser(
-            final int id,
-            final String firstName,
-            final String secondName,
-            final int age, String sex,
-            final double money
+            int id,
+            String firstName,
+            String secondName,
+            int age, String sex,
+            double money
     );
 
     UserDTO addMoney(int userId, double amount);
 
-    UserDTO buyCar(final int userId, final int carId);
+    UserDTO buyCar(int userId, int carId);
 
-    UserDTO sellCar(final int userId, final int carId);
+    UserDTO sellCar(int userId, int carId);
 
-    int deleteUser(final int userId);
+    int deleteUser(int userId);
 }

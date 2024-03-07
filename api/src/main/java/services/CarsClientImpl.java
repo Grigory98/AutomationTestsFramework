@@ -1,6 +1,6 @@
 package services;
 
-import base.Request;
+import base.RequestImpl;
 import dto.CarDTO;
 import io.qameta.allure.Step;
 
@@ -12,55 +12,55 @@ public class CarsClientImpl implements CarsClient {
 
     @Step("Получить все машины")
     public CarDTO[] getCars() {
-        return new Request<CarDTO[]>().get("/cars", CarDTO[].class);
+        return new RequestImpl<CarDTO[]>().get("/cars", CarDTO[].class);
     }
 
     @Step("Получить машину с id = {id}")
     public CarDTO getCar(final int id) {
-        return new Request<CarDTO>().get("/car/" + id, CarDTO.class);
+        return new RequestImpl<CarDTO>().get("/car/" + id, CarDTO.class);
     }
 
     @Step("Получить все машины у пользователя c id = {userId}")
     public CarDTO[] getUsersCars(final int userId) {
-        return new Request<CarDTO[]>().get("/usersCars/" + userId, CarDTO[].class);
+        return new RequestImpl<CarDTO[]>().get("/usersCars/" + userId, CarDTO[].class);
     }
 
     @Step("Создать новую машину")
     public CarDTO createCar(
-            final String engineType,
-            final String mark,
-            final String model,
-            final double price
+            String engineType,
+            String mark,
+            String model,
+            double price
     ) {
-        final LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
         params.put("engineType", engineType);
         params.put("mark", mark);
         params.put("model", model);
         params.put("price", price);
 
-        return new Request<CarDTO>().post(token, "/car", params, CarDTO.class);
+        return new RequestImpl<CarDTO>().post(token, "/car", params, CarDTO.class);
     }
 
     @Step("Изменить данные машины с id = {id}")
     public CarDTO updateCar(
-            final int id,
-            final String engineType,
-            final String mark,
-            final String model,
-            final double price
+            int id,
+            String engineType,
+            String mark,
+            String model,
+            double price
     ) {
-        final LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
         params.put("engineType", engineType);
         params.put("mark", mark);
         params.put("model", model);
         params.put("price", price);
 
-        return new Request<CarDTO>().put(token, "/car/" + id, params, CarDTO.class);
+        return new RequestImpl<CarDTO>().put(token, "/car/" + id, params, CarDTO.class);
     }
 
     @Step("Удалить машину {carId}")
-    public int deleteCar(final int carId) {
-        return new Request<CarDTO>().delete(token, "/car/" + carId);
+    public int deleteCar(int carId) {
+        return new RequestImpl<CarDTO>().delete(token, "/car/" + carId);
     }
 
 }

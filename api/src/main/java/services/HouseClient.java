@@ -6,30 +6,30 @@ import dto.ParkingPlaceDTO;
 public interface HouseClient {
     HouseDTO[] getHouses();
 
-    HouseDTO getHouse(final int houseId);
+    HouseDTO getHouse(int houseId);
 
     HouseDTO createHouse(
-            final int floorCount,
-            final double price,
-            final ParkingPlaceDTO[] parkingPlaceDTOS
+            int floorCount,
+            double price,
+            ParkingPlaceDTO[] parkingPlaceDTOS
     );
 
     HouseDTO updateHouse(
-            final int houseId,
-            final int floorCount,
-            final double price,
-            final ParkingPlaceDTO[] parkingPlaceDTOS
+            int houseId,
+            int floorCount,
+            double price,
+            ParkingPlaceDTO[] parkingPlaceDTOS
     );
 
-    int deleteHouse(final int houseId);
+    int deleteHouse(int houseId);
 
-    HouseDTO addLodger(final int houseId, final int userId);
+    HouseDTO addLodger(int houseId, int userId);
 
-    HouseDTO removeLodger(final int houseId, final int userId);
+    HouseDTO removeLodger(int houseId, int userId);
 
     ParkingPlaceDTO createParkingPlace(
-            final boolean isWarm,
-            final boolean isCovered,
-            final int price
+            boolean isWarm,
+            boolean isCovered,
+            int price
     );
 }

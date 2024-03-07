@@ -17,7 +17,7 @@ public class ParkingPlaceDTO {
         return placesCount;
     }
 
-    public ParkingPlaceDTO(final boolean isWarm, final boolean isCovered, final int placesCount) {
+    public ParkingPlaceDTO(boolean isWarm, boolean isCovered, int placesCount) {
         this.isWarm = isWarm;
         this.isCovered = isCovered;
         this.placesCount = placesCount;
