@@ -1,7 +1,17 @@
 name: Automated tests
 
 on:
-  push
+  workflow_dispatch:
+    inputs:
+      deployment_target:
+        description: Chooose target
+        required: true
+        default:
+          type: choice
+          options:
+            - all
+            - ui
+            - api
 
 jobs:
   test:
@@ -18,5 +28,12 @@ jobs:
           cache: maven
       - name: Install Chrome
         run: sudo apt-get install google-chrome-stable
-      - name: Build with Maven and Run tests
+      - name: Build with Maven and Run UI tests
+        if: "github.event.inputs.deployment_target == 'ui'"
+        run: mvn -B package --file pom.xml
+      - name: Build with Maven and Run API tests
+        if: "github.event.inputs.deployment_target == 'api'"
+        run: mvn -B package --file pom.xml
+      - name: Build with Maven and Run all tests
+        if: "github.event.inputs.deployment_target == 'all'"
         run: mvn -B package --file pom.xml
