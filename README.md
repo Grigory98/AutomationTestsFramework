@@ -19,6 +19,16 @@
 Содержит в себе единственный класс для генерации названий.
 
 <h2>Запуск тестов</h2>
+<ul>
+  <li>Перейти в Actions -> Automated tests и заполнить требуемые поля</li>
+  <li>Выбрать модуль для запуска (ui, api, all)</li>
+  <li>Запустить джобу</li>
+</ul>
+
+<p>После прохождения джобы результаты тестов можно посмотреть на github pages: https://grigory98.github.io/AutomationTestsFramework/#</p>
+<p>Срок хранения результатов 1 день.</p>
+
+<h2>Запуск тестов</h2>
 <b>Перед запуском тестов необходимо заполнить учетные данные в конфиг файлах!!!</b>
 <p>1) Перейти в api/src/main/java/config/Constants.java и заполнить свойства LOGIN и PASSWORD</p>
 <p>2) Перейти в ui/src/main/java/core/ApplicationConfig.java и заполнить свойства USERNAME и PASSWORD</p>
