@@ -16,9 +16,7 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
-      - name: Build with Maven
-        run: mvn -B package --file pom.xml
       - name: Install Chrome
         run: sudo apt-get install google-chrome-stable
-      - name: Run tests
-        run: mvn test
+      - name: Build with Maven and Run tests
+        run: mvn -B package --file pom.xml
