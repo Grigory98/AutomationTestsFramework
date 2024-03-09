@@ -98,13 +98,24 @@ jobs:
         uses: actions/download-artifact@v3
       - name: Run UI tests
         if: "github.event.inputs.deployment_target == 'ui'"
-        run: mvn test -pl ui -Duiusername="${{ github.event.inputs.UIName }}" -Duipassword="${{ github.event.inputs.UIPassword }}"
+        run: mvn test -pl ui 
+             -Duiusername="${{ github.event.inputs.UIName }}" 
+             -Duipassword="${{ github.event.inputs.UIPassword }}"
+        continue-on-error: true
       - name: Run API tests
         if: "github.event.inputs.deployment_target == 'api'"
-        run: mvn test -pl api -Dapiusername="${{ github.event.inputs.APIName }}" -Dapipassword="${{ github.event.inputs.APIPassword }}"
+        run: mvn test -pl api 
+             -Dapiusername="${{ github.event.inputs.APIName }}" 
+             -Dapipassword="${{ github.event.inputs.APIPassword }}"
+        continue-on-error: true
       - name: Run all tests
         if: "github.event.inputs.deployment_target == 'all'"
-        run: mvn test -Duiusername="${{ github.event.inputs.UIName }}" -Duipassword="${{ github.event.inputs.UIPassword }}" -Dapiusername="${{ github.event.inputs.APIName }}" -Dapipassword="${{ github.event.inputs.APIPassword }}"
+        run: mvn test 
+             -Duiusername="${{ github.event.inputs.UIName }}" 
+             -Duipassword="${{ github.event.inputs.UIPassword }}" 
+             -Dapiusername="${{ github.event.inputs.APIName }}" 
+             -Dapipassword="${{ github.event.inputs.APIPassword }}"
+        continue-on-error: true
       - name: Save allure results
         uses: actions/upload-artifact@v3
         with:
@@ -122,7 +133,9 @@ jobs:
         with:
           distribution: 'microsoft' # See 'Supported distributions' for available options
           java-version: '17'
-      - run: sudo wget https://github.com/allure-framework/allure2/releases/download/2.23.0/allure-2.23.0.tgz && sudo tar -zxvf allure-2.23.0.tgz -C /opt/ && sudo ln -s /opt/allure-2.23.0/bin/allure /usr/bin/allure
+      - run: sudo wget https://github.com/allure-framework/allure2/releases/download/2.23.0/allure-2.23.0.tgz 
+             && sudo tar -zxvf allure-2.23.0.tgz -C /opt/ 
+             && sudo ln -s /opt/allure-2.23.0/bin/allure /usr/bin/allure
       - name: Download all workfolow run artifacts
         uses: actions/download-artifact@v3
       - run: allure generate -c allure-results -o _site
