@@ -1,6 +1,6 @@
 # AutomationTestsFramework
-<p>Проект с тестовыми фреймворками с api и ui автотестами.</p>
 [![Automated tests](https://github.com/Grigory98/AutomationTestsFramework/actions/workflows/run_tests.yml/badge.svg)](https://github.com/Grigory98/AutomationTestsFramework/actions/workflows/run_tests.yml)
+<p>Проект с тестовыми фреймворками с api и ui автотестами.</p>
 
 <h2>Проект содержит несколько модулей</h2>
 <ul>
