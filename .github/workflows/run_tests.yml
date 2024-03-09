@@ -5,11 +5,11 @@ on:
     inputs:
       Name:
         description: Username
-        required: true
+        required: ${{ github.event.inputs.deployment_target == 'api' }}
         default: "your username"
       Password:
         description: Password
-        required: true
+        required: ${{ github.event.inputs.deployment_target == 'api' }}
         default: "your password"
       deployment_target:
         description: Choose target
