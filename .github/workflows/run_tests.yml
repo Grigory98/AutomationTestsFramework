@@ -42,10 +42,10 @@ jobs:
         run: mvn clean install -Dmaven.test.skip
       - name: Run UI tests
         if: "github.event.inputs.deployment_target == 'ui'"
-        run: mvn test -pl ui
+        run: mvn test -pl ui -Dusername="${{ github.event.inputs.Name }}" -Dpassword="${{ github.event.inputs.Password }}"
       - name: Run API tests
         if: "github.event.inputs.deployment_target == 'api'"
-        run: mvn test -pl api
+        run: mvn test -pl api -Dusername="${{ github.event.inputs.Name }}" -Dpassword="${{ github.event.inputs.Password }}"
       - name: Run all tests
         if: "github.event.inputs.deployment_target == 'all'"
         run: mvn test
