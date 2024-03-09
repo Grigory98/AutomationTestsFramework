@@ -30,6 +30,8 @@ jobs:
         run: sudo apt-get install google-chrome-stable
       - name: Build with Maven
         run: mvn -B package --file pom.xml -Dmaven.test.skip
+      - name: Maven clean install
+        run: mvn clean install -Dmaven.test.skip
       - name: Run UI tests
         if: "github.event.inputs.deployment_target == 'ui'"
         run: mvn test -pl ui
