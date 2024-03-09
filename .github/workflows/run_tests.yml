@@ -3,14 +3,18 @@ name: Automated tests
 on:
   workflow_dispatch:
     inputs:
-      Name:
-        description: Username
+      APIName:
+        description: APIusername
         required: true
-        default: "your username"
-      Password:
-        description: Password
+      APIPassword:
+        description: APIpassword
         required: true
-        default: "your password"
+      UIName:
+        description: UIusername
+        required: true
+      UIPassword:
+        description: UIpassword
+        required: true
       deployment_target:
         description: Choose target
         required: true
@@ -42,10 +46,10 @@ jobs:
         run: mvn clean install -Dmaven.test.skip
       - name: Run UI tests
         if: "github.event.inputs.deployment_target == 'ui'"
-        run: mvn test -pl ui -Dusername="${{ github.event.inputs.Name }}" -Dpassword="${{ github.event.inputs.Password }}"
+        run: mvn test -pl ui -Duiusername="${{ github.event.inputs.UIName }}" -Duipassword="${{ github.event.inputs.UIPassword }}"
       - name: Run API tests
         if: "github.event.inputs.deployment_target == 'api'"
-        run: mvn test -pl api -Dusername="${{ github.event.inputs.Name }}" -Dpassword="${{ github.event.inputs.Password }}"
+        run: mvn test -pl api -Dapiusername="${{ github.event.inputs.APIName }}" -Dapipassword="${{ github.event.inputs.APIPassword }}"
       - name: Run all tests
         if: "github.event.inputs.deployment_target == 'all'"
-        run: mvn test
+        run: mvn test -Duiusername="${{ github.event.inputs.UIName }}" -Duipassword="${{ github.event.inputs.UIPassword }}" -Dapiusername="${{ github.event.inputs.APIName }}" -Dapipassword="${{ github.event.inputs.APIPassword }}"

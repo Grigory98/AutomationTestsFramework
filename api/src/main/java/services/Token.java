@@ -9,8 +9,8 @@ import java.util.Map;
 public class Token {
     public static String authorization() {
         Map<String, Object> params = new LinkedHashMap<>();
-        params.put("username", System.getProperty("username"));
-        params.put("password", System.getProperty("password"));
+        params.put("username", System.getProperty("apiusername"));
+        params.put("password", System.getProperty("apipassword"));
         TokenMap response = new RequestImpl<TokenMap>().post(null, "/login", params, TokenMap.class);
         return "Bearer " + response.getToken();
     }
