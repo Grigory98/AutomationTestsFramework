@@ -3,10 +3,18 @@ name: Automated tests
 on:
   workflow_dispatch:
     inputs:
+      Name:
+        description: Username
+        required: true
+        default: "your username"
+      Password:
+        description: Password
+        required: true
+        default: "your password"
       deployment_target:
         description: Choose target
         required: true
-        default:
+        default: all
         type: choice
         options:
           - all
