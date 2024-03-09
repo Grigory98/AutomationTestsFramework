@@ -28,14 +28,9 @@
 <p>После прохождения джобы результаты тестов можно посмотреть на github pages: https://grigory98.github.io/AutomationTestsFramework/#</p>
 <p>Срок хранения результатов 1 день.</p>
 
-<h2>Запуск тестов</h2>
-<b>Перед запуском тестов необходимо заполнить учетные данные в конфиг файлах!!!</b>
-<p>1) Перейти в api/src/main/java/config/Constants.java и заполнить свойства LOGIN и PASSWORD</p>
-<p>2) Перейти в ui/src/main/java/core/ApplicationConfig.java и заполнить свойства USERNAME и PASSWORD</p>
+<h2>Локальный запуск тестов</h2>
+<p>Для полного запуска тестов из корневого каталога ввести команду: <b>mvn test -Duiusername="username" -Duipassword="password" -Dapiusername="username" -Dapipassword="password"</b></p>
+<p>Для запуска api тестов: <b>mvn test -pl api -Dapiusername="username" -Dapipassword="password"</b></p>
+<p>Для запуска ui тестов: <b>mvn test -pl ui -Duiusername="username" -Duipassword="password"</b></p>
 
-Для запуска тестов необходимо в корневом каталоге AutomationTestFramework запустить команду:
-<p><b>mvn test</b></p>
-
-<p>Allure отчеты генерируеются в каждом проекте отдельно в директории target/allure-results</p> 
-Для генерации отчётов необходимо запустить команду:
-<p><b>allure serve</b></p>
+<p>Отчёт генерируется в папку allure-results. Для генерации просмотра использовать команду: <b>allure serve</b></p>
