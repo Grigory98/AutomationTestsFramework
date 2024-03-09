@@ -1,5 +1,6 @@
 # AutomationTestsFramework
 Проект с тестовыми фреймворками с api и ui автотестами.
+[![Automated tests](https://github.com/Grigory98/AutomationTestsFramework/actions/workflows/run_tests.yml/badge.svg)](https://github.com/Grigory98/AutomationTestsFramework/actions/workflows/run_tests.yml)
 
 <h2>Проект содержит несколько модулей</h2>
 <ul>
