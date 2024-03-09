@@ -33,4 +33,4 @@
 <p>Для запуска api тестов: <b>mvn test -pl api -Dapiusername="username" -Dapipassword="password"</b></p>
 <p>Для запуска ui тестов: <b>mvn test -pl ui -Duiusername="username" -Duipassword="password"</b></p>
 
-<p>Отчёт генерируется в папку allure-results. Для генерации просмотра использовать команду: <b>allure serve</b></p>
+<p>Отчёт генерируется в папку allure-results. Для просмотра использовать команду: <b>allure serve</b></p>
