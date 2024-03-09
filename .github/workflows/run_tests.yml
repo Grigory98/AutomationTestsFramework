@@ -4,14 +4,14 @@ on:
   workflow_dispatch:
     inputs:
       deployment_target:
-        description: Chooose target
+        description: Choose target
         required: true
         default:
-          type: choice
-          options:
-            - all
-            - ui
-            - api
+        type: choice
+        options:
+          - all
+          - ui
+          - api
 
 jobs:
   test:
