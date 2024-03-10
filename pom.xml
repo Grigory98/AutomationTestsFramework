@@ -17,6 +17,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>11</java.version>
         <allure.version>2.23.0</allure.version>
         <allure.results.path>../allure-results</allure.results.path>
         <aspectj.version>1.9.19</aspectj.version>

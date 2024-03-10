@@ -6,8 +6,6 @@ import io.qameta.allure.Step;
 
 import java.util.LinkedHashMap;
 
-import static base.RequestImpl.delete;
-
 public class CarsClientImpl implements CarsClient {
 
     private final String token = Token.authorization();
