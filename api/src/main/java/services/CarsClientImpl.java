@@ -12,17 +12,17 @@ public class CarsClientImpl implements CarsClient {
 
     @Step("Получить все машины")
     public CarDTO[] getCars() {
-        return new RequestImpl<CarDTO[]>().get("/cars", CarDTO[].class);
+        return RequestImpl.get("/cars", CarDTO[].class);
     }
 
     @Step("Получить машину с id = {id}")
     public CarDTO getCar(final int id) {
-        return new RequestImpl<CarDTO>().get("/car/" + id, CarDTO.class);
+        return RequestImpl.get("/car/" + id, CarDTO.class);
     }
 
     @Step("Получить все машины у пользователя c id = {userId}")
     public CarDTO[] getUsersCars(final int userId) {
-        return new RequestImpl<CarDTO[]>().get("/usersCars/" + userId, CarDTO[].class);
+        return RequestImpl.get("/usersCars/" + userId, CarDTO[].class);
     }
 
     @Step("Создать новую машину")
@@ -37,8 +37,7 @@ public class CarsClientImpl implements CarsClient {
         params.put("mark", mark);
         params.put("model", model);
         params.put("price", price);
-
-        return new RequestImpl<CarDTO>().post(token, "/car", params, CarDTO.class);
+        return RequestImpl.post(token, "/car", params, CarDTO.class);
     }
 
     @Step("Изменить данные машины с id = {id}")
@@ -54,8 +53,7 @@ public class CarsClientImpl implements CarsClient {
         params.put("mark", mark);
         params.put("model", model);
         params.put("price", price);
-
-        return new RequestImpl<CarDTO>().put(token, "/car/" + id, params, CarDTO.class);
+        return RequestImpl.put(token, "/car/" + id, params, CarDTO.class);
     }
 
     @Step("Удалить машину {carId}")

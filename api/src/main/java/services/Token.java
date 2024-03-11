@@ -11,7 +11,7 @@ public class Token {
         Map<String, Object> params = new LinkedHashMap<>();
         params.put("username", System.getProperty("apiusername"));
         params.put("password", System.getProperty("apipassword"));
-        TokenMap response = new RequestImpl<TokenMap>().post(null, "/login", params, TokenMap.class);
+        TokenMap response = RequestImpl.post(null, "/login", params, TokenMap.class);
         return "Bearer " + response.getToken();
     }
 }

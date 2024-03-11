@@ -13,12 +13,12 @@ public class HouseClientImpl implements HouseClient {
 
     @Step("Получить все дома")
     public HouseDTO[] getHouses() {
-        return new RequestImpl<HouseDTO[]>().get("/houses", HouseDTO[].class);
+        return RequestImpl.get("/houses", HouseDTO[].class);
     }
 
     @Step("Получить дом {houseId}")
     public HouseDTO getHouse(int houseId) {
-        return new RequestImpl<HouseDTO>().get("/house/" + houseId, HouseDTO.class);
+        return RequestImpl.get("/house/" + houseId, HouseDTO.class);
     }
 
     @Step("Создать новый дом")
@@ -31,8 +31,7 @@ public class HouseClientImpl implements HouseClient {
         params.put("floorCount", floorCount);
         params.put("price", price);
         params.put("parkingPlaces", parkingPlaceDTOS);
-
-        return new RequestImpl<HouseDTO>().post(token, "/house", params, HouseDTO.class);
+        return RequestImpl.post(token, "/house", params, HouseDTO.class);
     }
 
     @Step("Изменить данные дома {houseId}")
@@ -46,8 +45,7 @@ public class HouseClientImpl implements HouseClient {
         params.put("floorCount", floorCount);
         params.put("price", price);
         params.put("parkingPlaces", parkingPlaceDTOS);
-
-        return new RequestImpl<HouseDTO>().put(token, "/house/" + houseId, params, HouseDTO.class);
+        return RequestImpl.put(token, "/house/" + houseId, params, HouseDTO.class);
     }
 
     @Step("Удалить дом {houseId}")
@@ -57,12 +55,12 @@ public class HouseClientImpl implements HouseClient {
 
     @Step("Заселить жильца {userId} в дом {houseId}")
     public HouseDTO addLodger(int houseId, int userId) {
-        return new RequestImpl<HouseDTO>().post(token, "/house/" + houseId + "/settle/" + userId, null, HouseDTO.class);
+        return RequestImpl.post(token, "/house/" + houseId + "/settle/" + userId, null, HouseDTO.class);
     }
 
     @Step("Выселить жильца {userId} из дома {houseId}")
     public HouseDTO removeLodger(int houseId, int userId) {
-        return new RequestImpl<HouseDTO>().post(token, "/house/" + houseId + "/evict/" + userId, null, HouseDTO.class);
+        return RequestImpl.post(token, "/house/" + houseId + "/evict/" + userId, null, HouseDTO.class);
     }
 
     @Step("Создать новое парковочное место")

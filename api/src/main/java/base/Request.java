@@ -16,15 +16,6 @@ import java.util.Map;
 
 public interface Request<T> {
     Gson gson = new Gson();
-    T get(String url, Class<T> responseType);
-
-    T post(String token, String url, Map<String, Object> params, Class<T> responseType);
-
-    T put(String token, String url, Map<String, Object> params, Class<T> responseType);
-
-    static int delete(String token, String url) {
-        return 0;
-    }
 
     default T post(String url, Map<String, Object> params, Class<T> responseType) {
         CloseableHttpClient httpClient = HttpClients.createDefault();

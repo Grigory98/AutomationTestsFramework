@@ -1,6 +1,5 @@
 package base;
 
-import com.google.gson.Gson;
 import config.Constants;
 import org.apache.hc.client5.http.classic.methods.HttpDelete;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
@@ -18,9 +17,7 @@ import java.io.IOException;
 import java.util.Map;
 
 public class RequestImpl<T> implements Request<T> {
-    private static final Gson gson = new Gson();
-
-    public T get(String url, Class<T> responseType) {
+    public static <T> T get(String url, Class<T> responseType) {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpGet httpGet = new HttpGet(Constants.URL_DEV + url);
         try {
@@ -36,7 +33,7 @@ public class RequestImpl<T> implements Request<T> {
         }
     }
 
-    public T post(String token, String url, Map<String, Object> params, Class<T> responseType) {
+    public static <T> T post(String token, String url, Map<String, Object> params, Class<T> responseType) {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         try {
             HttpPost httpPost = new HttpPost(Constants.URL_DEV + url);
@@ -58,7 +55,7 @@ public class RequestImpl<T> implements Request<T> {
         }
     }
 
-    public T put(String token, String url, Map<String, Object> params, Class<T> responseType) {
+    public static <T> T put(String token, String url, Map<String, Object> params, Class<T> responseType) {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         try {
             HttpPut httpPut = new HttpPut(Constants.URL_DEV + url);
