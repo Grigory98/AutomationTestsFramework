@@ -105,7 +105,7 @@ jobs:
       - name: Save allure results
         uses: actions/upload-artifact@v3
         with:
-          name: allure-results-ui
+          name: allure-results
           path:
             allure-results
           retention-days: 1
@@ -138,13 +138,13 @@ jobs:
       - name: Save allure results
         uses: actions/upload-artifact@v3
         with:
-          name: allure-results-api
+          name: allure-results
           path:
             allure-results
           retention-days: 1
 
   generate-report:
-    needs: run-tests-api
+    needs: [run-tests-ui, run-tests-api]
     runs-on: ubuntu-latest
     name: Generate report
     steps:
