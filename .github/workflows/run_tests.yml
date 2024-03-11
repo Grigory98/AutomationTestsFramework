@@ -105,7 +105,7 @@ jobs:
       - name: Save allure results
         uses: actions/upload-artifact@v3
         with:
-          name: allure-results
+          name: allure-results-ui
           path:
             allure-results
           retention-days: 1
@@ -138,7 +138,7 @@ jobs:
       - name: Save allure results
         uses: actions/upload-artifact@v3
         with:
-          name: allure-results
+          name: allure-results-api
           path:
             allure-results
           retention-days: 1
