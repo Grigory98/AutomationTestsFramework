@@ -144,8 +144,9 @@ jobs:
           retention-days: 1
 
   generate-report:
-    needs: [run-tests-ui, run-tests-api]
     runs-on: ubuntu-latest
+    needs: [run-tests-ui, run-tests-api]
+    if: ${{ always() }}
     name: Generate report
     steps:
       - uses: actions/setup-java@v3
