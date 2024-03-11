@@ -24,7 +24,7 @@ public class DriversManager {
             if(ApplicationConfig.HEADLESS_MODE)
                 chromeOptions.addArguments("--headless");
             _current = new ChromeDriver(chromeOptions);
-            _current.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+            _current.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
             _current.manage().window().maximize();
             _current.get(ApplicationConfig.URL);
         }
