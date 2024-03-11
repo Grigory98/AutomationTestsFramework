@@ -144,7 +144,7 @@ jobs:
           retention-days: 1
 
   generate-report:
-    needs: [run-tests-ui, run-tests-api]
+    needs: run-tests-api
     runs-on: ubuntu-latest
     name: Generate report
     steps:
