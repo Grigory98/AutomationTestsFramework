@@ -47,6 +47,11 @@ public class Message extends AbstractPage {
     }
 
     public void markAsFavorite() {
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         if(!flag.getAttribute("class").contains(IS_ACTIVE_SELECTOR))
             flag.click();
     }

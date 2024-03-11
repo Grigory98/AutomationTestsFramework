@@ -43,12 +43,11 @@ public class LoginDialogWindow extends AbstractPage {
     }
 
     public LoginDialogWindow() {
-        var div = DriversManager.current().findElement(By.cssSelector(".ag-popup__frame__layout.ag-popup__frame__layout-desktop"));
-
-        var iframe = div.findElement(By.tagName("iframe"));
-
+        WebElement div = DriversManager
+                .waitFor()
+                .until(t -> DriversManager.current().findElement(By.cssSelector(".ag-popup__frame__layout.ag-popup__frame__layout-desktop")));
+        WebElement iframe = DriversManager.waitFor().until(t -> div.findElement(By.tagName("iframe")));
         DriversManager.current().switchTo().frame(iframe);
-
         PageFactory.initElements(DriversManager.current().findElement(LOGIN_CONTENT), this);
     }
 }

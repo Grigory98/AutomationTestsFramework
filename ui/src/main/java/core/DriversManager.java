@@ -7,7 +7,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.time.Duration;
+
 public class DriversManager {
     private static WebDriver _current;
 
@@ -24,7 +26,7 @@ public class DriversManager {
             if(ApplicationConfig.HEADLESS_MODE)
                 chromeOptions.addArguments("--headless");
             _current = new ChromeDriver(chromeOptions);
-            _current.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+            _current.manage().timeouts().implicitlyWait(Duration.ofSeconds(Constants.IMPLICITLY_WAIT));
             _current.manage().window().maximize();
             _current.get(ApplicationConfig.URL);
         }
@@ -49,4 +51,7 @@ public class DriversManager {
         return _wait;
     }
 
+    private static class Constants {
+        public static final long IMPLICITLY_WAIT = 5000;
+    }
 }

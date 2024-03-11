@@ -50,16 +50,14 @@ public class MailSteps {
 
     @Step("Выделить сообщение с заголовком: {topic}")
     public MailSteps selectMessage(String topic) {
-        MailGrid mailGrid = new MailGrid();
-        Message message = mailGrid.getMessage(topic);
+        Message message = new MailGrid().getMessage(topic);
         message.selectMessage();
         return this;
     }
 
     @Step("Пометить сообщение {topic} как избранное")
     public MailSteps markMessageAsFavorite(String topic) {
-        MailGrid mailGrid = new MailGrid();
-        Message message = mailGrid.getMessage(topic);
+        Message message = new MailGrid().getMessage(topic);
         message.markAsFavorite();
         return this;
     }
@@ -73,8 +71,7 @@ public class MailSteps {
 
     @Step("Проверить, что сообщение содержится в гриде")
     public MailSteps checkMessageExists(String title) {
-        MailGrid mailGrid = new MailGrid();
-        Message message = mailGrid.getMessage(title);
+        Message message = new MailGrid().getMessage(title);
         Assertions.assertNotNull(message, "Сообщение содержится в гриде");
         return this;
     }

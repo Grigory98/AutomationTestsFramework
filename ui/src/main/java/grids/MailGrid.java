@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 public class MailGrid extends AbstractGrid {
 
-    @FindBy(how = How.CSS, using = "[class = \"draggable\"]")
+    @FindBy(how = How.CSS, using = "[class = \"letter-list__react\"]")
     private WebElement messageList;
 
     @FindBy(how = How.CSS, using = ".compose-button__txt")
