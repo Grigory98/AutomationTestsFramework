@@ -1,5 +1,6 @@
 package core;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import io.qameta.allure.Attachment;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -9,6 +10,8 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DriversManager {
     private static WebDriver _current;
@@ -21,10 +24,16 @@ public class DriversManager {
 
     public static WebDriver current() {
         if (!DriversManager.isDriverExist()) {
+            WebDriverManager.chromedriver().setup();
+            List<String> args = new ArrayList<>();
             ChromeOptions chromeOptions = new ChromeOptions();
-            chromeOptions.addArguments("--remote-allow-origins=*");
+            args.add("--remote-allow-origins=*");
+            args.add("--disable-dev-shm-usage");
+            args.add("--ignore-ssl-errors=yes");
+            args.add("--ignore-certificate-errors");
             if(ApplicationConfig.HEADLESS_MODE)
-                chromeOptions.addArguments("--headless");
+                args.add("--headless");
+            chromeOptions.addArguments(args);
             _current = new ChromeDriver(chromeOptions);
             _current.manage().timeouts().implicitlyWait(Duration.ofSeconds(Constants.IMPLICITLY_WAIT));
             _current.manage().window().maximize();
