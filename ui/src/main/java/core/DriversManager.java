@@ -1,6 +1,5 @@
 package core;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 import io.qameta.allure.Attachment;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -24,7 +23,6 @@ public class DriversManager {
 
     public static WebDriver current() {
         if (!DriversManager.isDriverExist()) {
-            WebDriverManager.chromedriver().setup();
             List<String> args = new ArrayList<>();
             ChromeOptions chromeOptions = new ChromeOptions();
             args.add("--remote-allow-origins=*");
