@@ -26,11 +26,8 @@ public class DriversManager {
             List<String> args = new ArrayList<>();
             ChromeOptions chromeOptions = new ChromeOptions();
             args.add("--remote-allow-origins=*");
-            args.add("--disable-dev-shm-usage");
-            args.add("--ignore-ssl-errors=yes");
-            args.add("--ignore-certificate-errors");
             if(ApplicationConfig.HEADLESS_MODE)
-                args.add("--headless");
+                args.add("--headless=new");
             chromeOptions.addArguments(args);
             _current = new ChromeDriver(chromeOptions);
             _current.manage().timeouts().implicitlyWait(Duration.ofSeconds(Constants.IMPLICITLY_WAIT));
