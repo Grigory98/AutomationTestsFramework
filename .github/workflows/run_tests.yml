@@ -95,7 +95,7 @@ jobs:
         run: mvn -B package --file pom.xml -Dmaven.test.skip
       - name: Maven clean install
         run: mvn clean install -Dmaven.test.skip
-      - name: Download all workfolow run artifacts
+      - name: Download all workflow run artifacts
         uses: actions/download-artifact@v3
       - name: Run UI tests
         run: mvn test -pl ui
@@ -128,7 +128,7 @@ jobs:
         run: mvn -B package --file pom.xml -Dmaven.test.skip
       - name: Maven clean install
         run: mvn clean install -Dmaven.test.skip
-      - name: Download all workfolow run artifacts
+      - name: Download all workflow run artifacts
         uses: actions/download-artifact@v3
       - name: Run API tests
         run: mvn test -pl api
