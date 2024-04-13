@@ -33,6 +33,7 @@ permissions:
 jobs:
   download-history:
     runs-on: ubuntu-latest
+    if: always()
     name: Download history
     steps:
       - name: setup Python
