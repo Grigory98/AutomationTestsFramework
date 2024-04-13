@@ -32,7 +32,7 @@ permissions:
 
 jobs:
   run-tests-ui:
-    needs: download-history
+
     if: "github.event.inputs.deployment_target == 'ui' || github.event.inputs.deployment_target == 'all'"
     runs-on: ubuntu-latest
 
@@ -67,7 +67,7 @@ jobs:
           retention-days: 1
 
   run-tests-api:
-    needs: download-history
+
     if: "github.event.inputs.deployment_target == 'api' || github.event.inputs.deployment_target == 'all'"
     runs-on: ubuntu-latest
 
