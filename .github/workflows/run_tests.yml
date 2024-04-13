@@ -64,7 +64,6 @@ jobs:
       - run: ls
       - run: mkdir allure-results
       - run: mkdir old_pages pages_history
-      - run: cp pages_history/history/* allure-results && cp -r pages_history/history allure-results
       - name: Store allure history
         uses: actions/upload-artifact@v3
         with:
